@@ -14,22 +14,5 @@
  * limitations under the License.
  */
 
-output "ids" {
-  description = "Folder ids."
-  value       = module.top_folder.ids
-}
 
-output "names" {
-  description = "Folder names."
-  value       = module.top_folder.names
-}
 
-output "ids_list" {
-  description = "List of folder ids."
-  value       = module.top_folder.ids_list
-}
-
-output "names_list" {
-  description = "List of folder names."
-  value       = module.top_folder.names_list
-}

@@ -43,7 +43,7 @@ module "landing-vpc" {
 
 module "landing-firewall" {
   source              = "./modules/net-vpc-firewall"
-  project_id          = module.landing-project.project_id
+  project_id          = module.project_network_hub.project_id
   network             = module.landing-vpc.name
   admin_ranges        = []
   http_source_ranges  = []
@@ -55,7 +55,7 @@ module "landing-firewall" {
 
 module "landing-nat-ew1" {
   source         = "./modules/net-cloudnat"
-  project_id     = module.landing-project.project_id
+  project_id     = module.project_network_hub.project_id
   region         = "europe-west1"
   name           = "ew1"
   router_create  = true
