@@ -75,3 +75,58 @@ variable "region_trigram" {
     us-west2 = "uw2"
   }
 }
+
+variable "psa_ranges" {
+  description = "IP ranges used for Private Service Access (e.g. CloudSQL)."
+  type = object({
+    dev = object({
+      ranges = map(string)
+      routes = object({
+        export = bool
+        import = bool
+      })
+    })
+    prod = object({
+      ranges = map(string)
+      routes = object({
+        export = bool
+        import = bool
+      })
+    })
+  })
+  default = null
+  # default = {
+  #   dev = {
+  #     ranges = {
+  #       cloudsql-mysql     = "10.128.62.0/24"
+  #       cloudsql-sqlserver = "10.128.63.0/24"
+  #     }
+  #     routes = null
+  #   }
+  #   prod = {
+  #     ranges = {
+  #       cloudsql-mysql     = "10.128.94.0/24"
+  #       cloudsql-sqlserver = "10.128.95.0/24"
+  #     }
+  #     routes = null
+  #   }
+  # }
+}
+
+variable "l7ilb_subnets" {
+  description = "Subnets used for L7 ILBs."
+  type = map(list(object({
+    ip_cidr_range = string
+    region        = string
+  })))
+  default = {
+    prod = [
+      { ip_cidr_range = "10.128.92.0/24", region = "europe-west1" },
+      { ip_cidr_range = "10.128.93.0/24", region = "europe-west4" }
+    ]
+    dev = [
+      { ip_cidr_range = "10.128.60.0/24", region = "europe-west1" },
+      { ip_cidr_range = "10.128.61.0/24", region = "europe-west4" }
+    ]
+  }
+}
