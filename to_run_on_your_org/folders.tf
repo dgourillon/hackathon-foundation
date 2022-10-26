@@ -4,23 +4,55 @@ module  "top_folder" {
   source = "./modules/terraform-google-folders"
 
   parent            = "${var.parent_type}/${var.parent_id}"
-  names             = ["psolab-target"]
+  names             = ["hackaton-1"]
   set_roles         = false
 }
 
-module  "folder_1" {
-  source = "./modules/terraform-google-folders"
-
-  parent            = module.top_folder.ids_list[0]
-  names             = ["migrate","network","apps"]
-  set_roles         = false
+module "top_folder" {
+  source = "./modules/folder"
+  parent            = "${var.parent_type}/${var.parent_id}"
+  name   = "hackaton-1"
+  group_iam = {
+  }
+  iam = {
+  }
+  tag_bindings = {
+  }
 }
 
-module  "folder_apps" {
-  source = "./modules/terraform-google-folders"
+module "migrate_folder" {
+  source = "./modules/folder"
+  parent            = module.top_folder.id
+  name   = "migrate"
+  group_iam = {
+  }
+  iam = {
+  }
+  tag_bindings = {
+  }
+}
 
-  parent            = module.folder_1.ids_list[2]
-  names             = ["prod","nonprod","dev"]
-  set_roles         = false
+module "network_folder" {
+  source = "./modules/folder"
+  parent            = module.top_folder.id
+  name   = "network"
+  group_iam = {
+  }
+  iam = {
+  }
+  tag_bindings = {
+  }
+}
+
+module "apps_folder" {
+  source = "./modules/folder"
+  parent            = module.top_folder.id
+  name   = "apps"
+  group_iam = {
+  }
+  iam = {
+  }
+  tag_bindings = {
+  }
 }
 

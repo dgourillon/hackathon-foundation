@@ -10,7 +10,7 @@ module "project_migrate" {
   billing_account     = var.billing_acccount
   name                = "migrate-project-${random_string.random.result}"
   auto_create_network = false
-  parent              = module.folder_1.ids_list[0]
+  parent              = module.migrate_folder.id
   services            = [
     "compute.googleapis.com",
     "stackdriver.googleapis.com",
@@ -28,7 +28,7 @@ module "project_app_dev" {
   billing_account     = var.billing_acccount
   name                = "app-dev-project-${random_string.random.result}"
   auto_create_network = false
-  parent              = module.folder_apps.ids_list[2]
+  parent              = module.apps_folder.id
   services            = [
     "compute.googleapis.com",
     "stackdriver.googleapis.com"
@@ -41,7 +41,7 @@ module "project_app_nonprod" {
   billing_account     = var.billing_acccount
   name                = "app-nonprod-project-${random_string.random.result}"
   auto_create_network = false
-  parent              = module.folder_apps.ids_list[1]
+  parent              = module.apps_folder.id
   services            = [
     "compute.googleapis.com",
     "stackdriver.googleapis.com"
@@ -54,7 +54,7 @@ module "project_app_prod" {
   billing_account     = var.billing_acccount
   name                = "app-prod-project-${random_string.random.result}"
   auto_create_network = false
-  parent              = module.folder_apps.ids_list[0]
+  parent              = module.apps_folder.id
   services            = [
     "compute.googleapis.com",
     "stackdriver.googleapis.com"
@@ -67,7 +67,7 @@ module "project_network_hub" {
   billing_account     = var.billing_acccount
   name                = "net-hub-project-${random_string.random.result}"
   auto_create_network = false
-  parent              = module.folder_1.ids_list[1]
+  parent              = module.network_folder.id
   services            = [
     "compute.googleapis.com",
     "dns.googleapis.com",
@@ -83,9 +83,12 @@ module "project_network_spoke_prod" {
   billing_account     = var.billing_acccount
   name                = "net-prod-project-${random_string.random.result}"
   auto_create_network = false
-  parent              = module.folder_1.ids_list[1]
+  parent              = module.network_folder.id
   services            = [
     "compute.googleapis.com",
+    "dns.googleapis.com",
+    "iap.googleapis.com",
+    "networkmanagement.googleapis.com",
     "stackdriver.googleapis.com"
   ]
 
@@ -96,9 +99,12 @@ module "project_network_spoke_dev" {
   billing_account     = var.billing_acccount
   name                = "net-nonprod-project-${random_string.random.result}"
   auto_create_network = false
-  parent              = module.folder_1.ids_list[1]
+  parent              = module.network_folder.id
   services            = [
     "compute.googleapis.com",
+    "dns.googleapis.com",
+    "iap.googleapis.com",
+    "networkmanagement.googleapis.com",
     "stackdriver.googleapis.com"
   ]
 
