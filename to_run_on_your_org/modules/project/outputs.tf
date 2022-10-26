@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-output "project_id" {
-  description = "Project id."
-  value       = "${local.prefix}${var.name}"
-  depends_on = [
-    google_project.project,
-    data.google_project.project,
-    google_project_organization_policy.boolean,
-    google_project_organization_policy.list,
-    google_project_service.project_services,
-    google_compute_shared_vpc_service_project.service_projects,
-    google_kms_crypto_key_iam_member.crypto_key
-  ]
+output "custom_roles" {
+  description = "Ids of the created custom roles."
+  value = {
+    for name, role in google_project_iam_custom_role.roles :
+    name => role.id
+  }
 }
 
 output "name" {
@@ -36,7 +30,8 @@ output "name" {
     google_project_organization_policy.list,
     google_project_service.project_services,
     google_compute_shared_vpc_service_project.service_projects,
-    google_kms_crypto_key_iam_member.crypto_key
+    google_project_iam_member.shared_vpc_host_robots,
+    google_kms_crypto_key_iam_member.service_identity_cmek
   ]
 }
 
@@ -47,8 +42,34 @@ output "number" {
     google_project_organization_policy.boolean,
     google_project_organization_policy.list,
     google_project_service.project_services,
+    google_compute_shared_vpc_host_project.shared_vpc_host,
+    google_compute_shared_vpc_service_project.shared_vpc_service,
     google_compute_shared_vpc_service_project.service_projects,
-    google_kms_crypto_key_iam_member.crypto_key
+    google_project_iam_member.shared_vpc_host_robots,
+    google_kms_crypto_key_iam_member.service_identity_cmek,
+    google_project_service_identity.jit_si,
+    google_project_service_identity.servicenetworking,
+    google_project_iam_member.servicenetworking
+  ]
+}
+
+output "project_id" {
+  description = "Project id."
+  value       = "${local.prefix}${var.name}"
+  depends_on = [
+    google_project.project,
+    data.google_project.project,
+    google_project_organization_policy.boolean,
+    google_project_organization_policy.list,
+    google_project_service.project_services,
+    google_compute_shared_vpc_host_project.shared_vpc_host,
+    google_compute_shared_vpc_service_project.shared_vpc_service,
+    google_compute_shared_vpc_service_project.service_projects,
+    google_project_iam_member.shared_vpc_host_robots,
+    google_kms_crypto_key_iam_member.service_identity_cmek,
+    google_project_service_identity.jit_si,
+    google_project_service_identity.servicenetworking,
+    google_project_iam_member.servicenetworking
   ]
 }
 
@@ -61,17 +82,11 @@ output "service_accounts" {
   }
   depends_on = [
     google_project_service.project_services,
-    google_kms_crypto_key_iam_member.crypto_key,
-    google_project_service_identity.jit_si
+    google_kms_crypto_key_iam_member.service_identity_cmek,
+    google_project_service_identity.jit_si,
+    data.google_bigquery_default_service_account.bq_sa,
+    data.google_storage_project_service_account.gcs_sa
   ]
-}
-
-output "custom_roles" {
-  description = "Ids of the created custom roles."
-  value = {
-    for name, role in google_project_iam_custom_role.roles :
-    name => role.id
-  }
 }
 
 output "sink_writer_identities" {

@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ output "gateway" {
 }
 
 output "name" {
-  description = "VPN gateway name (only if auto-created). "
+  description = "VPN gateway name (only if auto-created). ."
   value = (
     var.vpn_gateway_create
     ? google_compute_ha_vpn_gateway.ha_gateway[0].name
@@ -73,14 +73,6 @@ output "self_link" {
   value       = local.vpn_gateway
 }
 
-output "tunnels" {
-  description = "VPN tunnel resources."
-  value = {
-    for name in keys(var.tunnels) :
-    name => try(google_compute_vpn_tunnel.tunnels[name], null)
-  }
-}
-
 output "tunnel_names" {
   description = "VPN tunnel names."
   value = {
@@ -94,5 +86,13 @@ output "tunnel_self_links" {
   value = {
     for name in keys(var.tunnels) :
     name => try(google_compute_vpn_tunnel.tunnels[name].self_link, null)
+  }
+}
+
+output "tunnels" {
+  description = "VPN tunnel resources."
+  value = {
+    for name in keys(var.tunnels) :
+    name => try(google_compute_vpn_tunnel.tunnels[name], null)
   }
 }
