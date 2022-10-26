@@ -16,25 +16,6 @@
 
 # tfdoc:file:description Landing VPC and related resources.
 
-module "landing-project" {
-  source          = "./modules/project"
-  billing_account = var.billing_account.id
-  name            = "prod-net-landing-0"
-  parent          = var.folder_ids.networking-prod
-  prefix          = var.prefix
-  services = [
-    "compute.googleapis.com",
-    "dns.googleapis.com",
-    "iap.googleapis.com",
-    "networkmanagement.googleapis.com",
-    "stackdriver.googleapis.com"
-  ]
-  shared_vpc_host_config = {
-    enabled = true
-  }
-  iam = {
-  }
-}
 
 module "landing-vpc" {
   source     = "./modules/net-vpc"
