@@ -25,17 +25,6 @@ module "migrate_folder" {
   }
 }
 
-module "network_folder" {
-  source = "./modules/folder"
-  parent            = module.top_folder.id
-  name   = "network"
-  group_iam = {
-  }
-  iam = {
-  }
-  tag_bindings = {
-  }
-}
 
 module "network_folder" {
   source        = "./modules/folder"
