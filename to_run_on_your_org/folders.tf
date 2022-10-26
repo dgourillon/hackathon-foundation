@@ -30,8 +30,6 @@ module "network_folder" {
   source        = "./modules/folder"
   parent        = module.top_folder.id
   name          = "network"
-  folder_create = var.folder_ids.networking == null
-  id            = var.folder_ids.networking
   firewall_policy_factory = {
     cidr_file   = "${var.data_dir}/cidrs.yaml"
     policy_name = null
