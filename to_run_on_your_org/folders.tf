@@ -32,7 +32,7 @@ module "network_folder" {
   name          = "network"
   firewall_policy_factory = {
     cidr_file   = "${var.data_dir}/cidrs.yaml"
-    policy_name = null
+    policy_name = "test"
     rules_file  = "${var.data_dir}/hierarchical-policy-rules.yaml"
   }
   firewall_policy_association = {
