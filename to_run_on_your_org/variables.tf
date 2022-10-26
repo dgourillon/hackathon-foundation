@@ -64,3 +64,14 @@ variable "data_dir" {
   type        = string
   default     = "data"
 }
+
+variable "region_trigram" {
+  description = "Short names for GCP regions."
+  type        = map(string)
+  default = {
+    europe-west1 = "ew1"
+    europe-west3 = "ew3"
+    us-central1 = "uc1"
+    us-west2 = "uw2"
+  }
+}
