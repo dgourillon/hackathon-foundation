@@ -1,12 +1,5 @@
 
 
-module  "top_folder" {
-  source = "./modules/terraform-google-folders"
-
-  parent            = "${var.parent_type}/${var.parent_id}"
-  names             = ["hackaton-1"]
-  set_roles         = false
-}
 
 module "top_folder" {
   source = "./modules/folder"
