@@ -59,3 +59,8 @@ variable "mtb_network" {
   default     = "migrate-network"
 }
 
+variable "data_dir" {
+  description = "Relative path for the folder storing configuration data for network resources."
+  type        = string
+  default     = "data"
+}

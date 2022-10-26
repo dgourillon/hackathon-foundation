@@ -70,6 +70,9 @@ module "project_network_hub" {
   parent              = module.folder_1.ids_list[1]
   services            = [
     "compute.googleapis.com",
+    "dns.googleapis.com",
+    "iap.googleapis.com",
+    "networkmanagement.googleapis.com",
     "stackdriver.googleapis.com"
   ]
 
