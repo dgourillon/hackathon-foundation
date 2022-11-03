@@ -20,10 +20,8 @@
 locals {
   _defaults = yamldecode(file(var.defaults_file))
   _defaults_net = {
-    billing_account_id   = var.billing_account.id
-    environment_dns_zone = var.environment_dns_zone
-    shared_vpc_self_link = try(var.vpc_self_links["dev-spoke-0"], null)
-    vpc_host_project     = try(var.host_project_ids["dev-spoke-0"], null)
+    shared_vpc_self_link = module.landing-vpc.self_link
+    vpc_host_project     = module.project_network_spoke_dev.id
   }
   defaults = merge(local._defaults, local._defaults_net)
   projects = {
