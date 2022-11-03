@@ -65,6 +65,13 @@ variable "data_dir" {
   default     = "data"
 }
 
+variable "defaults_file" {
+  description = "Relative path for the file storing the project factory configuration."
+  type        = string
+  default     = "data/defaults.yaml"
+}
+
+
 variable "region_trigram" {
   description = "Short names for GCP regions."
   type        = map(string)
