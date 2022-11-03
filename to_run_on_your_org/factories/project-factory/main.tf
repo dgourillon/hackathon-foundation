@@ -116,7 +116,7 @@ locals {
 
 module "billing-alert" {
   for_each              = local.billing_alert == null ? {} : { 1 = 1 }
-  source                = "../../../modules/billing-budget"
+  source                = "../../modules/billing-budget"
   billing_account       = local.billing_account_id
   name                  = "${module.project.project_id} budget"
   amount                = local.billing_alert.amount
@@ -131,7 +131,7 @@ module "billing-alert" {
 }
 
 module "dns" {
-  source          = "../../../modules/dns"
+  source          = "../../modules/dns"
   for_each        = toset(var.dns_zones)
   project_id      = coalesce(local.vpc.host_project, module.project.project_id)
   type            = "private"
@@ -141,7 +141,7 @@ module "dns" {
 }
 
 module "project" {
-  source                     = "../../../modules/project"
+  source                     = "../../modules/project"
   billing_account            = local.billing_account_id
   name                       = var.project_id
   prefix                     = var.prefix
@@ -172,7 +172,7 @@ module "project" {
 }
 
 module "service-accounts" {
-  source     = "../../../modules/iam-service-account"
+  source     = "../../modules/iam-service-account"
   for_each   = var.service_accounts
   name       = each.key
   project_id = module.project.project_id

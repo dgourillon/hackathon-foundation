@@ -22,7 +22,7 @@ locals {
 }
 
 module "group" {
-  source       = "../../../modules/cloud-identity-group"
+  source       = "../../modules/cloud-identity-group"
   for_each     = local.groups
   customer_id  = var.customer_id
   name         = each.key
