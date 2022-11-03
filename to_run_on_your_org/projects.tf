@@ -7,7 +7,7 @@ resource "random_string" "random" {
 
 module "project_migrate" {
   source              = "./modules/project"
-  billing_account     = var.billing_acccount
+  billing_account     = var.billing_account
   name                = "migrate-project-${random_string.random.result}"
   auto_create_network = false
   parent              = module.migrate_folder.id
@@ -25,7 +25,7 @@ module "project_migrate" {
 
 module "project_app_dev" {
   source              = "./modules/project"
-  billing_account     = var.billing_acccount
+  billing_account     = var.billing_account
   name                = "app-dev-project-${random_string.random.result}"
   auto_create_network = false
   parent              = module.apps_folder.id
@@ -38,7 +38,7 @@ module "project_app_dev" {
 
 module "project_app_nonprod" {
   source              = "./modules/project"
-  billing_account     = var.billing_acccount
+  billing_account     = var.billing_account
   name                = "app-nonprod-project-${random_string.random.result}"
   auto_create_network = false
   parent              = module.apps_folder.id
@@ -51,7 +51,7 @@ module "project_app_nonprod" {
 
 module "project_app_prod" {
   source              = "./modules/project"
-  billing_account     = var.billing_acccount
+  billing_account     = var.billing_account
   name                = "app-prod-project-${random_string.random.result}"
   auto_create_network = false
   parent              = module.apps_folder.id
@@ -64,7 +64,7 @@ module "project_app_prod" {
 
 module "project_network_hub" {
   source              = "./modules/project"
-  billing_account     = var.billing_acccount
+  billing_account     = var.billing_account
   name                = "net-hub-project-${random_string.random.result}"
   auto_create_network = false
   parent              = module.network_folder.id
@@ -80,7 +80,7 @@ module "project_network_hub" {
 
 module "project_network_spoke_prod" {
   source              = "./modules/project"
-  billing_account     = var.billing_acccount
+  billing_account     = var.billing_account
   name                = "net-prod-project-${random_string.random.result}"
   auto_create_network = false
   parent              = module.network_folder.id
@@ -96,7 +96,7 @@ module "project_network_spoke_prod" {
 
 module "project_network_spoke_dev" {
   source              = "./modules/project"
-  billing_account     = var.billing_acccount
+  billing_account     = var.billing_account
   name                = "net-nonprod-project-${random_string.random.result}"
   auto_create_network = false
   parent              = module.network_folder.id
