@@ -35,9 +35,9 @@ module "network_folder" {
     policy_name = "test"
     rules_file  = "${var.data_dir}/hierarchical-policy-rules.yaml"
   }
-  firewall_policy_association = {
-    factory-policy = "factory"
-  }
+ # firewall_policy_association = {
+ #   factory-policy = "factory"
+ # }
 }
 
 module "apps_folder" {
