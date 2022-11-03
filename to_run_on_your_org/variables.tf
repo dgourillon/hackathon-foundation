@@ -25,7 +25,7 @@ variable "parent_type" {
   default     = "folders"
 }
 
-variable "billing_acccount" {
+variable "billing_account" {
   type        = string
   description = "billing account to use for projects"
 }
