@@ -137,3 +137,10 @@ variable "l7ilb_subnets" {
     ]
   }
 }
+
+variable "environment_dns_zone" {
+  # tfdoc:variable:source 02-networking
+  description = "DNS zone suffix for environment."
+  type        = string
+  default     = null
+}

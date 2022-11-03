@@ -22,6 +22,9 @@ locals {
   _defaults_net = {
     shared_vpc_self_link = module.landing-vpc.self_link
     vpc_host_project     = module.project_network_spoke_dev.project_id
+    environment_dns_zone = var.environment_dns_zone
+    billing_account_id   = var.billing_account
+
   }
   defaults = merge(local._defaults, local._defaults_net)
   projects = {
@@ -29,6 +32,7 @@ locals {
     trimsuffix(f, ".yaml") => yamldecode(file("${var.data_dir}/${f}"))
   }
 }
+
 
 module "projects" {
   source                 = "./factories/project-factory"
