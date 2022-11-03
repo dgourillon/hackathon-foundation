@@ -39,7 +39,7 @@ module "projects" {
   for_each               = local.projects
   defaults               = local.defaults
   project_id             = each.key
-  billing_account_id     = var.billing_acccount
+  billing_account_id     = var.billing_account
   billing_alert          = try(each.value.billing_alert, null)
   dns_zones              = try(each.value.dns_zones, [])
   essential_contacts     = try(each.value.essential_contacts, [])
