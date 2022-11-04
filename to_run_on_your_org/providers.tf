@@ -1,7 +1,5 @@
 
-data "google_client_config" "default" {
-  provider = "google"
-}
+
 data "google_service_account_access_token" "sa" {
   
   target_service_account = "terraform-sa@hackathon-admin-367612.iam.gserviceaccount.com"
