@@ -1,12 +1,9 @@
-provider "google" {
-  
-  alias   = "tokengen"
-}
+
 data "google_client_config" "default" {
-  provider = "google.tokengen"
+  provider = "google"
 }
 data "google_service_account_access_token" "sa" {
-  provider               = "google.tokengen"
+  
   target_service_account = "terraform-sa@hackathon-admin-367612.iam.gserviceaccount.com"
   lifetime               = "600s"
 scopes = [
