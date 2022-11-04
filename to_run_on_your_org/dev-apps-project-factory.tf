@@ -42,7 +42,7 @@ module "projects" {
   billing_account_id     = var.billing_account
   billing_alert          = try(each.value.billing_alert, null)
  # dns_zones              = try(each.value.dns_zones, [])
-  essential_contacts     = try(each.value.essential_contacts, [])
+  essential_contacts     = ["hackathon-internal@dgourillon1.joonix.net"]
   folder_id              = module.apps_folder.id
   group_iam              = try(each.value.group_iam, {})
   iam                    = try(each.value.iam, {})
