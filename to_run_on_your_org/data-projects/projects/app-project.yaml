@@ -14,11 +14,6 @@ billing_alert:
   credit_treatment: INCLUDE_ALL_CREDITS
 
 
-
-# [opt] Contacts for billing alerts and important notifications
-essential_contacts:
-  - hackathon-internal@dgourillon1.joonix.net
-
 # Folder the project will be created as children of
 folder_id: folders/012345678901
 
