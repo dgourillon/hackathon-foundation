@@ -19,7 +19,8 @@ module "project_migrate" {
     "servicecontrol.googleapis.com" ,
     "iam.googleapis.com" ,
     "cloudresourcemanager.googleapis.com", 
-    "billingbudgets.googleapis.com"
+    "billingbudgets.googleapis.com",
+    "essentialcontacts.googleapis.com"
   ]
 
 }
@@ -33,7 +34,8 @@ module "project_app_dev" {
   services            = [
     "compute.googleapis.com",
     "stackdriver.googleapis.com", 
-    "billingbudgets.googleapis.com"
+    "billingbudgets.googleapis.com",
+    "essentialcontacts.googleapis.com"
   ]
 
 }
@@ -47,7 +49,8 @@ module "project_app_nonprod" {
   services            = [
     "compute.googleapis.com",
     "stackdriver.googleapis.com", 
-    "billingbudgets.googleapis.com"
+    "billingbudgets.googleapis.com",
+    "essentialcontacts.googleapis.com"
   ]
 
 }
@@ -61,7 +64,8 @@ module "project_app_prod" {
   services            = [
     "compute.googleapis.com",
     "stackdriver.googleapis.com", 
-    "billingbudgets.googleapis.com"
+    "billingbudgets.googleapis.com",
+    "essentialcontacts.googleapis.com"
   ]
 
 }
@@ -95,7 +99,8 @@ module "project_network_spoke_prod" {
     "iap.googleapis.com",
     "networkmanagement.googleapis.com",
     "stackdriver.googleapis.com", 
-    "billingbudgets.googleapis.com"
+    "billingbudgets.googleapis.com",
+    "essentialcontacts.googleapis.com"
   ]
 
 }
@@ -112,7 +117,8 @@ module "project_network_spoke_dev" {
     "iap.googleapis.com",
     "networkmanagement.googleapis.com",
     "stackdriver.googleapis.com", 
-    "billingbudgets.googleapis.com"
+    "billingbudgets.googleapis.com",
+    "essentialcontacts.googleapis.com"
   ]
 
 }
