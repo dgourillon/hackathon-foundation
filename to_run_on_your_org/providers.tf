@@ -1,5 +1,5 @@
 provider "google" {
-  version = "latest"
+  
   alias   = "tokengen"
 }
 data "google_client_config" "default" {
@@ -17,7 +17,7 @@ scopes = [
   GA Provider configuration
  *****************************************/
 provider "google" {
-  version      = "latest"
+  
   access_token = data.google_service_account_access_token.sa.access_token
 
 }
@@ -25,7 +25,7 @@ provider "google" {
   Beta Provider configuration
  *****************************************/
 provider "google-beta" {
-  version      = "~> 2.0, >= 2.5.1"
+  
   access_token = data.google_service_account_access_token.sa.access_token
 
 }
