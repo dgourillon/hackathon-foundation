@@ -17,10 +17,6 @@ billing_alert:
 # Folder the project will be created as children of
 folder_id: folders/012345678901
 
-# [opt] Authoritative IAM bindings in group => [roles] format
-group_iam:
-  test-team-foobar@fast-lab-0.gcp-pso-italy.net:
-    - roles/compute.admin
 
 # [opt] Authoritative IAM bindings in role => [principals] format
 # Generally used to grant roles to service accounts external to the project
