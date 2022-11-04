@@ -38,11 +38,11 @@ module "projects" {
   source                 = "./factories/project-factory"
   for_each               = local.projects
   defaults               = local.defaults
-  project_id             = replace("${each.key}-${random_string.random.result}", "projects/", "")
+  project_id             = replace("${each.key}-${random_string.random.result}", "projects/", "-")
   billing_account_id     = var.billing_account
   billing_alert          = try(each.value.billing_alert, null)
  # dns_zones              = try(each.value.dns_zones, [])
-  essential_contacts     = ["hackathon-internal@dgourillon1.joonix.net"]
+  essential_contacts     = try(each.value.essential_contacts, [])
   folder_id              = module.apps_folder.id
   group_iam              = try(each.value.group_iam, {})
   iam                    = try(each.value.iam, {})

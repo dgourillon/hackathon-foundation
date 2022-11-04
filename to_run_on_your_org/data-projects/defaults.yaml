@@ -11,7 +11,7 @@ billing_alert:
   credit_treatment: INCLUDE_ALL_CREDITS
 
 # [opt] Contacts for billing alerts and important notifications
-#essential_contacts: ["hackathon-internal@dgourillon1.joonix.net"]
+essential_contacts: ["hackathon-internal@dgourillon1.joonix.net"]
 
 # [opt] Labels set for all projects
 labels:
