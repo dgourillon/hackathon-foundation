@@ -18,7 +18,8 @@ module "project_migrate" {
     "servicemanagement.googleapis.com", 
     "servicecontrol.googleapis.com" ,
     "iam.googleapis.com" ,
-    "cloudresourcemanager.googleapis.com" 
+    "cloudresourcemanager.googleapis.com", 
+    "billingbudgets.googleapis.com"
   ]
 
 }
@@ -31,7 +32,8 @@ module "project_app_dev" {
   parent              = module.apps_folder.id
   services            = [
     "compute.googleapis.com",
-    "stackdriver.googleapis.com"
+    "stackdriver.googleapis.com", 
+    "billingbudgets.googleapis.com"
   ]
 
 }
@@ -44,7 +46,8 @@ module "project_app_nonprod" {
   parent              = module.apps_folder.id
   services            = [
     "compute.googleapis.com",
-    "stackdriver.googleapis.com"
+    "stackdriver.googleapis.com", 
+    "billingbudgets.googleapis.com"
   ]
 
 }
@@ -57,7 +60,8 @@ module "project_app_prod" {
   parent              = module.apps_folder.id
   services            = [
     "compute.googleapis.com",
-    "stackdriver.googleapis.com"
+    "stackdriver.googleapis.com", 
+    "billingbudgets.googleapis.com"
   ]
 
 }
@@ -73,7 +77,8 @@ module "project_network_hub" {
     "dns.googleapis.com",
     "iap.googleapis.com",
     "networkmanagement.googleapis.com",
-    "stackdriver.googleapis.com"
+    "stackdriver.googleapis.com", 
+    "billingbudgets.googleapis.com"
   ]
 
 }
@@ -89,7 +94,8 @@ module "project_network_spoke_prod" {
     "dns.googleapis.com",
     "iap.googleapis.com",
     "networkmanagement.googleapis.com",
-    "stackdriver.googleapis.com"
+    "stackdriver.googleapis.com", 
+    "billingbudgets.googleapis.com"
   ]
 
 }
@@ -105,7 +111,8 @@ module "project_network_spoke_dev" {
     "dns.googleapis.com",
     "iap.googleapis.com",
     "networkmanagement.googleapis.com",
-    "stackdriver.googleapis.com"
+    "stackdriver.googleapis.com", 
+    "billingbudgets.googleapis.com"
   ]
 
 }
