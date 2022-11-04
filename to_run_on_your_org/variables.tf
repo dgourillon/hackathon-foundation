@@ -65,6 +65,13 @@ variable "data_dir" {
   default     = "data"
 }
 
+variable "data_dir_projects" {
+  description = "Relative path for the folder storing configuration data for network resources."
+  type        = string
+  default     = "data-projects"
+}
+
+
 variable "defaults_file" {
   description = "Relative path for the file storing the project factory configuration."
   type        = string
