@@ -85,6 +85,33 @@ module "prod-to-landing-uw2-vpn" {
   router_asn       = google_compute_router.prod-uw2-router.bgp[0].asn
   peer_gcp_gateway = module.landing-to-prod-uw2-vpn.self_link
   tunnels = {
+    remote-0 = {
+      bgp_peer = {
+        address = "169.254.1.2"
+        asn     = google_compute_router.landing-uw2-router.bgp[0].asn
+      }
+      bgp_peer_options                = null
+      bgp_session_range               = "169.254.1.1/30"
+      ike_version                     = 2
+      peer_external_gateway_interface = null
+      router                          = null
+      shared_secret                   = ""
+      vpn_gateway_interface           = 0
+    }
+    remote-1 = {
+      bgp_peer = {
+        address = "169.254.2.2"
+        asn     = google_compute_router.landing-uw2-router.bgp[0].asn
+      }
+      bgp_peer_options                = null
+      bgp_session_range               = "169.254.2.1/30"
+      ike_version                     = 2
+      peer_external_gateway_interface = null
+      router                          = null
+      shared_secret                   =""
+      vpn_gateway_interface           = 1
+    }
+
   }
   depends_on = [
     google_compute_router.prod-uw2-router
