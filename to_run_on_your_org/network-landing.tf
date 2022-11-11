@@ -83,7 +83,7 @@ module "landing-to-dev-uw2-vpn" {
   # The router used for this VPN is managed in vpn-prod.tf
   router_create    = false
   router_name      = google_compute_router.landing-uw2-router.name
-  router_asn       = google_compute_router.landing-uw2-router.bgp.asn[0]
+  router_asn       = google_compute_router.landing-uw2-router.bgp[0].asn
   peer_gcp_gateway = module.dev-to-landing-uw2-vpn.self_link
   tunnels = {
     
