@@ -69,5 +69,5 @@ module "landing-uw2-nat" {
   region         = "us-west2"
   name           = "uw2"
   router_create  = false
-  router_name    = google_compute_router.landing-router.name
+  router_name    = google_compute_router.landing-uw2-router.name
 }
