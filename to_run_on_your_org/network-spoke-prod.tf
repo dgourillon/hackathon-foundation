@@ -17,7 +17,7 @@
 # tfdoc:file:description Production spoke VPC and related resources.
 
 
-module "prod-spoke-vpc" {
+module "prod-spoke-vpc" { 
   source             = "./modules/net-vpc"
   project_id         = module.project_network_spoke_prod.project_id
   name               = "prod-spoke-0"
