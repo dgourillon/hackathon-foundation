@@ -46,4 +46,14 @@ service_identities_iam:
   compute:
     - roles/storage.objectViewer
 
+vpc:
+  # [opt] If set, enables the container API
+  gke_setup:
+    # Grants "roles/container.hostServiceAgentUser" to the container robot if set
+    enable_host_service_agent: false
 
+    # Grants  "roles/compute.securityAdmin" to the container robot if set
+    enable_security_admin: true
+
+  # Host project the project will be service project of
+  host_project: net-nonprod-project-4wrl
