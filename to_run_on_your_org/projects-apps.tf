@@ -55,6 +55,11 @@ module "dev-projects" {
   service_accounts_iam   = try(each.value.service_accounts_iam, {})
   services               = try(each.value.services, [])
   service_identities_iam = try(each.value.service_identities_iam, {})
-  vpc                    = try(each.value.vpc, null)
+#  vpc                    = try(each.value.vpc, null)
 }
 
+resource "google_compute_shared_vpc_service_project" "dev-xpn-service" {
+  local.dev_projects
+  host_project    = module.project_network_spoke_dev.project_id
+  service_project = replace("${each.key}-${random_string.random.result}", "dev/", "dev-")
+}

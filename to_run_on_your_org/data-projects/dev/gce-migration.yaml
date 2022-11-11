@@ -46,5 +46,3 @@ service_identities_iam:
   compute:
     - roles/storage.objectViewer
 
-shared_vpc_self_link: https://www.googleapis.com/compute/v1/projects/net-nonprod-project-4wrl/global/networks/dev-spoke-0
-vpc_host_project: net-nonprod-project-4wrl
