@@ -18,7 +18,7 @@
 
 
 module "prod-spoke-vpc" {
-  source             = "../../../modules/net-vpc"
+  source             = "./modules/net-vpc"
   project_id         = module.project_network_spoke_prod.project_id
   name               = "prod-spoke-0"
   mtu                = 1500
