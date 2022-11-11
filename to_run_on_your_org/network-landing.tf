@@ -96,7 +96,7 @@ module "landing-to-prod-uw2-vpn" {
       ike_version                     = 2
       peer_external_gateway_interface = null
       router                          = null
-      shared_secret                   = ""
+      shared_secret                   = "cettrestreslesecretoulalacoupdetat"
       vpn_gateway_interface           = 0
     }
     remote-1 = {
@@ -109,7 +109,7 @@ module "landing-to-prod-uw2-vpn" {
       ike_version                     = 2
       peer_external_gateway_interface = null
       router                          = null
-      shared_secret                   = ""
+      shared_secret                   = "cettrestreslesecretoulalacoupdetat"
       vpn_gateway_interface           = 1
     }    
   }
