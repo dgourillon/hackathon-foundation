@@ -73,7 +73,7 @@ module "prod-uw2-nat" {
 }
 
 
-module "dev-to-landing-uw2-vpn" {
+module "prod-to-landing-uw2-vpn" {
   source     = "./modules/net-vpn-ha"
   project_id = module.project_network_hub.project_id
   network    = module.project_network_spoke_prod.project_id
@@ -83,7 +83,7 @@ module "dev-to-landing-uw2-vpn" {
   router_create    = false
   router_name      = google_compute_router.prod-uw2-router.name
   router_asn       = google_compute_router.prod-uw2-router.bgp[0].asn
-  peer_gcp_gateway = module.landing-to-dev-uw2-vpn.self_link
+  peer_gcp_gateway = module.landing-to-prod-uw2-vpn.self_link
   tunnels = {
   }
   depends_on = [
