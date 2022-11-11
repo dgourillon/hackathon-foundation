@@ -82,7 +82,7 @@ module "prod-projects" {
   group_iam              = try(each.value.group_iam, {})
   iam                    = try(each.value.iam, {})
   kms_service_agents     = try(each.value.kms, {})
-  labels                 = try(each.value.labels, {})
+  labels                 = merge(try(each.value.labels, {}),{hackathon_number = var.hackathon_number})
   org_policies           = try(each.value.org_policies, null)
 #  prefix                 = var.prefix
   service_accounts       = try(each.value.service_accounts, {})

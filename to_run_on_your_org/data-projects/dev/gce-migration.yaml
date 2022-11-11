@@ -5,7 +5,7 @@
 
 # [opt] Billing alerts config - overrides default if set
 billing_alert:
-  amount: 10
+  amount: 100
   thresholds:
     current:
       - 0.5
@@ -22,9 +22,6 @@ folder_id: folders/012345678901
 # [opt] Labels for the project - merged with the ones defined in defaults
 labels:
   environment: dev
-  toto: tata
-
-
 
 # [opt] Service account to create for the project and their roles on the project
 # in name => [roles] format
