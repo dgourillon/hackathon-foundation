@@ -31,6 +31,10 @@ locals {
     for f in fileset("${var.data_dir_projects}", "dev/*.yaml") :
     trimsuffix(f, ".yaml") => yamldecode(file("${var.data_dir_projects}/${f}"))
   }
+  prod_projects = {
+    for f in fileset("${var.data_dir_projects}", "prod/*.yaml") :
+    trimsuffix(f, ".yaml") => yamldecode(file("${var.data_dir_projects}/${f}"))
+  }
 }
 
 
@@ -62,4 +66,28 @@ resource "google_compute_shared_vpc_service_project" "dev-xpn-service" {
   for_each        = local.dev_projects
   host_project    = module.project_network_spoke_nonprod.project_id
   service_project = replace("${each.key}-${random_string.random.result}", "dev/", "dev-")
+}
+
+module "prod-projects" {
+  source                 = "./factories/project-factory"
+  for_each               = local.prod_projects
+  defaults               = local.defaults
+  project_id             = replace("${each.key}-${random_string.random.result}", "dev/", "dev-")
+  billing_account_id     = var.billing_account
+  billing_alert          = try(each.value.billing_alert, null)
+ # dns_zones              = try(each.value.dns_zones, [])
+ # essential_contacts     = try(each.value.essential_contacts, [])
+  essential_contacts     = []
+  folder_id              = module.apps_folder.id
+  group_iam              = try(each.value.group_iam, {})
+  iam                    = try(each.value.iam, {})
+  kms_service_agents     = try(each.value.kms, {})
+  labels                 = try(each.value.labels, {})
+  org_policies           = try(each.value.org_policies, null)
+#  prefix                 = var.prefix
+  service_accounts       = try(each.value.service_accounts, {})
+  service_accounts_iam   = try(each.value.service_accounts_iam, {})
+  services               = try(each.value.services, [])
+  service_identities_iam = try(each.value.service_identities_iam, {})
+#  vpc                    = try(each.value.vpc, null)
 }
