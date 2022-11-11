@@ -145,7 +145,7 @@ module "landing-to-dev-uw2-vpn" {
     }
     remote-1 = {
       bgp_peer = {
-        address = "169.254.2.1"
+        address = "169.254.4.1"
         asn     = google_compute_router.dev-uw2-router.bgp[0].asn
       }
       bgp_peer_options                = null
