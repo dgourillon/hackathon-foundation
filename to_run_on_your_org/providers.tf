@@ -1,23 +1,15 @@
 
 provider "google" {
+
+  impersonate_service_account = " terraform-sa@hackathon-admin-367612.iam.gserviceaccount.com"
+
 }
 
-data "google_client_config" "default" {
-  provider = google
-}
+provider "google-beta" {
 
-data "google_service_account_access_token" "default" {
-  provider               = google
-  target_service_account = "terraform-sa@hackathon-admin-367612.iam.gserviceaccount.com"
-  scopes                 = ["userinfo-email", "cloud-platform"]
-  lifetime               = "300s"
-}
+  impersonate_service_account = " terraform-sa@hackathon-admin-367612.iam.gserviceaccount.com"
 
-provider "google" {
-  alias        = "impersonated"
-  access_token = data.google_service_account_access_token.default.access_token
 }
-
 
 
 
