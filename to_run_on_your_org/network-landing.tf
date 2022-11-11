@@ -117,3 +117,47 @@ module "landing-to-prod-uw2-vpn" {
     google_compute_router.landing-uw2-router
   ]
 }
+
+module "landing-to-dev-uw2-vpn" {
+  source     = "./modules/net-vpn-ha"
+  project_id = module.project_network_hub.project_id
+  network    = module.landing-vpc.name
+  region     = "us-west2"
+  name       = "vpn-to-dev-uw2"
+  
+  router_create    = false
+  router_name      = google_compute_router.landing-uw2-router.name
+  router_asn       = google_compute_router.landing-uw2-router.bgp[0].asn
+  peer_gcp_gateway = module.dev-to-landing-uw2-vpn.self_link
+  tunnels = {
+    remote-0 = {
+      bgp_peer = {
+        address = "169.254.3.1"
+        asn     = google_compute_router.dev-uw2-router.bgp[0].asn
+      }
+      bgp_peer_options                = null
+      bgp_session_range               = "169.254.3.2/30"
+      ike_version                     = 2
+      peer_external_gateway_interface = null
+      router                          = null
+      shared_secret                   = "cettrestreslesecretoulalacoupdetat"
+      vpn_gateway_interface           = 0
+    }
+    remote-1 = {
+      bgp_peer = {
+        address = "169.254.2.1"
+        asn     = google_compute_router.dev-uw2-router.bgp[0].asn
+      }
+      bgp_peer_options                = null
+      bgp_session_range               = "169.254.4.2/30"
+      ike_version                     = 2
+      peer_external_gateway_interface = null
+      router                          = null
+      shared_secret                   = "cettrestreslesecretoulalacoupdetat"
+      vpn_gateway_interface           = 1
+    }    
+  }
+  depends_on = [
+    google_compute_router.landing-uw2-router
+  ]
+}
