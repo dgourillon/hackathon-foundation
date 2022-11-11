@@ -53,8 +53,9 @@ module "landing-firewall" {
   cidr_template_file  = "${var.data_dir}/cidrs.yaml"
 }
 
-resource "google_compute_router" "landing-router" {
+resource "google_compute_router" "landing-uw2-router" {
   name    = "landing-router"
+  project = module.project_network_hub.project_id
   network = module.landing-vpc.name
   bgp {
     asn               = 4200001024
@@ -62,7 +63,7 @@ resource "google_compute_router" "landing-router" {
   }
 }
 
-module "landing-nat" {
+module "landing-uw2-nat" {
   source         = "./modules/net-cloudnat"
   project_id     = module.project_network_hub.project_id
   region         = "us-west2"

@@ -52,15 +52,21 @@ module "dev-spoke-firewall" {
   cidr_template_file  = "${var.data_dir_network}/cidrs.yaml"
 }
 
-module "dev-spoke-router" {
-  for_each       = toset(values(module.dev-spoke-vpc.subnet_regions))
-  source         = "./modules/net-cloudnat"
-  project_id     = module.project_network_spoke_dev.project_id
-  region         = each.value
-  name           = "router-${var.region_trigram[each.value]}"
-  router_create  = true
-  router_network = module.dev-spoke-vpc.name
-  router_asn     = 4200001026
-  logging_filter = "ERRORS_ONLY"
+resource "google_compute_router" "dev-uw2-router" {
+  name    = "landing-router"
+  network = module.landing-vpc.name
+  project = module.project_network_spoke_dev.project_id
+  bgp {
+    asn               = 4200001025
+    advertise_mode    = "DEFAULT"
+  }
 }
 
+module "dev-uw2-nat" {
+  source         = "./modules/net-cloudnat"
+  project_id     = module.project_network_spoke_dev.project_id
+  region         = "us-west2"
+  name           = "uw2"
+  router_create  = false
+  router_name    = google_compute_router.dev-uw2-router.name
+}
