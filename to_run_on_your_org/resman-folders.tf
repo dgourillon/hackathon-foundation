@@ -4,7 +4,7 @@
 module "top_folder" {
   source = "./modules/folder"
   parent            = "${var.parent_type}/${var.parent_id}"
-  name   = "hackathon-${var.hackathon-number}"
+  name   = "hackathon-${var.hackathon_number}"
   group_iam = {
 
   }
