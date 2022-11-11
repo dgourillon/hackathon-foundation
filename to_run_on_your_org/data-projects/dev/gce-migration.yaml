@@ -22,6 +22,7 @@ folder_id: folders/012345678901
 # [opt] Labels for the project - merged with the ones defined in defaults
 labels:
   environment: dev
+  toto: tata
 
 
 
