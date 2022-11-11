@@ -52,15 +52,15 @@ module "dev-spoke-firewall" {
   cidr_template_file  = "${var.data_dir_network}/cidrs.yaml"
 }
 
-module "dev-spoke-cloudnat" {
+module "dev-spoke-router" {
   for_each       = toset(values(module.dev-spoke-vpc.subnet_regions))
   source         = "./modules/net-cloudnat"
   project_id     = module.project_network_spoke_dev.project_id
   region         = each.value
-  name           = "dev-nat-${var.region_trigram[each.value]}"
+  name           = "router-${var.region_trigram[each.value]}"
   router_create  = true
   router_network = module.dev-spoke-vpc.name
-  router_asn     = 4200001024
+  router_asn     = 4200001026
   logging_filter = "ERRORS_ONLY"
 }
 
