@@ -34,7 +34,7 @@ locals {
 }
 
 
-module "projects" {
+module "dev-projects" {
   source                 = "./factories/project-factory"
   for_each               = local.dev_projects
   defaults               = local.defaults
