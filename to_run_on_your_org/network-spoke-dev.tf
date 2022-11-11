@@ -56,6 +56,7 @@ resource "google_compute_router" "dev-uw2-router" {
   name    = "landing-router"
   network = module.landing-vpc.name
   project = module.project_network_spoke_dev.project_id
+  region  = "us-west2"
   bgp {
     asn               = 4200001025
     advertise_mode    = "DEFAULT"
