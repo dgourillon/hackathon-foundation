@@ -53,13 +53,13 @@ module "landing-firewall" {
   cidr_template_file  = "${var.data_dir}/cidrs.yaml"
 }
 
-module "landing-nat-ew1" {
+module "landing-nat-uw2" {
   source         = "./modules/net-cloudnat"
   project_id     = module.project_network_hub.project_id
-  region         = "europe-west1"
-  name           = "ew1"
+  region         = "us-west2"
+  name           = "uw2"
   router_create  = true
-  router_name    = "prod-nat-ew1"
+  router_name    = "prod-nat-uw2"
   router_network = module.landing-vpc.name
   router_asn     = 4200001024
 }

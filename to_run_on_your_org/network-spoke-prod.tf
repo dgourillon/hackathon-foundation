@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-# tfdoc:file:description Dev spoke VPC and related resources.
+# tfdoc:file:description Production spoke VPC and related resources.
 
 
-module "dev-spoke-vpc" {
-  source             = "./modules/net-vpc"
-  project_id         = module.project_network_spoke_dev.project_id
-  name               = "dev-spoke-0"
+module "prod-spoke-vpc" {
+  source             = "../../../modules/net-vpc"
+  project_id         = module.project_network_spoke_prod.project_id
+  name               = "prod-spoke-0"
   mtu                = 1500
-  data_folder        = "${var.data_dir_network}/subnets/dev"
-  psa_config         = try(var.psa_ranges.dev, null)
-  subnets_proxy_only = local.l7ilb_subnets.dev
+  data_folder        = "${var.data_dir_network}/subnets/prod"
+  psa_config         = try(var.psa_ranges.prod, null)
+  subnets_proxy_only = local.l7ilb_subnets.prod
   # set explicit routes for googleapis in case the default route is deleted
   routes = {
     private-googleapis = {
@@ -40,29 +40,27 @@ module "dev-spoke-vpc" {
   }
 }
 
-module "dev-spoke-firewall" {
+module "prod-spoke-firewall" {
   source              = "./modules/net-vpc-firewall"
-  project_id          = module.project_network_spoke_dev.project_id
-  network             = module.dev-spoke-vpc.name
+  project_id          = module.prod-spoke-project.project_id
+  network             = module.prod-spoke-vpc.name
   admin_ranges        = []
   http_source_ranges  = []
   https_source_ranges = []
   ssh_source_ranges   = []
-  data_folder         = "${var.data_dir_network}/firewall-rules/dev"
+  data_folder         = "${var.data_dir_network}/firewall-rules/prod"
   cidr_template_file  = "${var.data_dir_network}/cidrs.yaml"
 }
 
-module "dev-spoke-cloudnat" {
-  for_each       = toset(values(module.dev-spoke-vpc.subnet_regions))
+module "prod-spoke-cloudnat" {
+  for_each       = toset(values(module.prod-spoke-vpc.subnet_regions))
   source         = "./modules/net-cloudnat"
-  project_id     = module.project_network_spoke_dev.project_id
+  project_id     = module.prod-spoke-project.project_id
   region         = each.value
-  name           = "dev-nat-${var.region_trigram[each.value]}"
+  name           = "prod-nat-${var.region_trigram[each.value]}"
   router_create  = true
-  router_network = module.dev-spoke-vpc.name
+  router_network = module.prod-spoke-vpc.name
   router_asn     = 4200001024
   logging_filter = "ERRORS_ONLY"
 }
-
-# Create delegated grants for stage3 service accounts
 
