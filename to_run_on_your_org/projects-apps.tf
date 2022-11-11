@@ -55,6 +55,12 @@ module "dev-projects" {
   service_accounts_iam   = try(each.value.service_accounts_iam, {})
   services               = try(each.value.services, [])
   service_identities_iam = try(each.value.service_identities_iam, {})
-  vpc                    = module.project_network_spoke_dev.project_id
+  vpc                    = {
+    host_project = module.project_network_spoke_dev.project_id
+    gke_setup = {
+      enable_security_admin     = false
+      enable_host_service_agent = false
+    }
+    subnets_iam = null
 }
 
