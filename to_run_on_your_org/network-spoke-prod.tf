@@ -42,7 +42,7 @@ module "prod-spoke-vpc" {
 
 module "prod-spoke-firewall" {
   source              = "./modules/net-vpc-firewall"
-  project_id          = module.prod-spoke-project.project_id
+  project_id          = module.project_network_spoke_prod.project_id
   network             = module.prod-spoke-vpc.name
   admin_ranges        = []
   http_source_ranges  = []
@@ -55,7 +55,7 @@ module "prod-spoke-firewall" {
 module "prod-spoke-cloudnat" {
   for_each       = toset(values(module.prod-spoke-vpc.subnet_regions))
   source         = "./modules/net-cloudnat"
-  project_id     = module.prod-spoke-project.project_id
+  project_id     = module.project_network_spoke_prod.project_id
   region         = each.value
   name           = "prod-nat-${var.region_trigram[each.value]}"
   router_create  = true
