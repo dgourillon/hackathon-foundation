@@ -18,11 +18,6 @@ billing_alert:
 folder_id: folders/012345678901
 
 
-# [opt] Authoritative IAM bindings in role => [principals] format
-# Generally used to grant roles to service accounts external to the project
-iam:
-  roles/compute.admin:
-    - serviceAccount:service-account
 
 # [opt] Labels for the project - merged with the ones defined in defaults
 labels:
