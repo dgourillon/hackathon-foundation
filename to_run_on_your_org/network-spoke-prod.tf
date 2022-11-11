@@ -75,15 +75,15 @@ module "prod-uw2-nat" {
 
 module "prod-to-landing-uw2-vpn" {
   source     = "./modules/net-vpn-ha"
-  project_id = module.project_network_hub.project_id
-  network    = module.project_network_spoke_prod.project_id
+  project_id = module.project_network_spoke_prod.project_id
+  network    = module.prod-spoke-vpc.name
   region     = "us-west2"
   name       = "vpn-to-landing-uw2"
   # The router used for this VPN is managed in vpn-prod.tf
   router_create    = false
   router_name      = google_compute_router.prod-uw2-router.name
   router_asn       = google_compute_router.prod-uw2-router.bgp[0].asn
-  #peer_gcp_gateway = module.landing-to-prod-uw2-vpn.self_link
+  peer_gcp_gateway = module.landing-to-prod-uw2-vpn.self_link
   tunnels = {
   }
   depends_on = [
