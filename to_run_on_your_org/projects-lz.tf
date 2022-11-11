@@ -27,12 +27,15 @@ module "project_migrate" {
 
 
 module "project_network_hub" {
-  source              = "./modules/project"
-  billing_account     = var.billing_account
-  name                = "net-hub-project-${random_string.random.result}"
-  auto_create_network = false
-  parent              = module.network_folder.id
-  services            = [
+  source                 = "./modules/project"
+  billing_account        = var.billing_account
+  name                   = "net-hub-project-${random_string.random.result}"
+  auto_create_network  = false
+  parent                 = module.network_folder.id
+  shared_vpc_host_config = {
+    enabled = true
+  }
+  services               = [
     "compute.googleapis.com",
     "dns.googleapis.com",
     "iap.googleapis.com",
@@ -44,11 +47,14 @@ module "project_network_hub" {
 }
 
 module "project_network_spoke_prod" {
-  source              = "./modules/project"
-  billing_account     = var.billing_account
-  name                = "net-prod-project-${random_string.random.result}"
-  auto_create_network = false
-  parent              = module.network_folder.id
+  source                 = "./modules/project"
+  billing_account        = var.billing_account
+  name                   = "net-prod-project-${random_string.random.result}"
+  auto_create_network    = false
+  parent                 = module.network_folder.id
+  shared_vpc_host_config = {
+    enabled = true
+  }
   services            = [
     "compute.googleapis.com",
     "dns.googleapis.com",
@@ -62,11 +68,14 @@ module "project_network_spoke_prod" {
 }
 
 module "project_network_spoke_dev" {
-  source              = "./modules/project"
-  billing_account     = var.billing_account
-  name                = "net-nonprod-project-${random_string.random.result}"
-  auto_create_network = false
-  parent              = module.network_folder.id
+  source                 = "./modules/project"
+  billing_account        = var.billing_account
+  name                   = "net-nonprod-project-${random_string.random.result}"
+  auto_create_network    = false
+  parent                 = module.network_folder.id
+  shared_vpc_host_config = {
+    enabled = true
+  }
   services            = [
     "compute.googleapis.com",
     "dns.googleapis.com",
