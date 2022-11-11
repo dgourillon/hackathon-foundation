@@ -64,5 +64,3 @@ module "dev-spoke-router" {
   logging_filter = "ERRORS_ONLY"
 }
 
-# Create delegated grants for stage3 service accounts
-
