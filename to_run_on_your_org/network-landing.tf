@@ -84,7 +84,7 @@ module "landing-to-prod-uw2-vpn" {
   router_create    = false
   router_name      = google_compute_router.landing-uw2-router.name
   router_asn       = google_compute_router.landing-uw2-router.bgp[0].asn
-  peer_gcp_gateway = module.prod-to-landing-uw2-vpn.self_link
+  #peer_gcp_gateway = module.prod-to-landing-uw2-vpn.self_link
   tunnels = {
     
   }
