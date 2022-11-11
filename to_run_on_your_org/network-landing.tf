@@ -56,7 +56,7 @@ module "landing-firewall" {
 resource "google_compute_router" "landing-uw2-router" {
   name    = "landing-router"
   project = module.project_network_hub.project_id
-  network = module.landing-vpc.self_link
+  network = module.landing-vpc.name
   region  = "us-west2"
   bgp {
     asn               = 4200001024

@@ -54,7 +54,7 @@ module "dev-spoke-firewall" {
 
 resource "google_compute_router" "dev-uw2-router" {
   name    = "landing-router"
-  network = module.landing-vpc.name
+  network = module.dev-spoke-vpc.name
   project = module.project_network_spoke_dev.project_id
   region  = "us-west2"
   bgp {
