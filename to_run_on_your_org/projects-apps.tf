@@ -55,6 +55,6 @@ module "dev-projects" {
   service_accounts_iam   = try(each.value.service_accounts_iam, {})
   services               = try(each.value.services, [])
   service_identities_iam = try(each.value.service_identities_iam, {})
-#  vpc                    = try(each.value.vpc, null)
+  vpc                    = try(each.value.vpc, null)
 }
 
