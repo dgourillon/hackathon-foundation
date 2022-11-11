@@ -67,7 +67,7 @@ module "project_network_spoke_prod" {
 
 }
 
-module "project_network_spoke_dev" {
+module "project_network_spoke_nonprod" {
   source                 = "./modules/project"
   billing_account        = var.billing_account
   name                   = "net-nonprod-project-${random_string.random.result}"

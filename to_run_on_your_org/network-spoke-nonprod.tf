@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-# tfdoc:file:description hprod spoke VPC and related resources.
+# tfdoc:file:description nonprod spoke VPC and related resources.
 
 
-module "hprod-spoke-vpc" {
+module "nonprod-spoke-vpc" {
   source             = "./modules/net-vpc"
-  project_id         = module.project_network_spoke_hprod.project_id
-  name               = "hprod-spoke-0"
+  project_id         = module.project_network_spoke_nonprod.project_id
+  name               = "nonprod-spoke-0"
   mtu                = 1500
-  data_folder        = "${var.data_dir_network}/subnets/hprod"
-  psa_config         = try(var.psa_ranges.hprod, null)
-  subnets_proxy_only = local.l7ilb_subnets.hprod
+  data_folder        = "${var.data_dir_network}/subnets/nonprod"
+  psa_config         = try(var.psa_ranges.nonprod, null)
+  subnets_proxy_only = local.l7ilb_subnets.nonprod
   # set explicit routes for googleapis in case the default route is deleted
   routes = {
     private-googleapis = {
@@ -40,22 +40,22 @@ module "hprod-spoke-vpc" {
   }
 }
 
-module "hprod-spoke-firewall" {
+module "nonprod-spoke-firewall" {
   source              = "./modules/net-vpc-firewall"
-  project_id          = module.project_network_spoke_hprod.project_id
-  network             = module.hprod-spoke-vpc.name
+  project_id          = module.project_network_spoke_nonprod.project_id
+  network             = module.nonprod-spoke-vpc.name
   admin_ranges        = []
   http_source_ranges  = []
   https_source_ranges = []
   ssh_source_ranges   = []
-  data_folder         = "${var.data_dir_network}/firewall-rules/hprod"
+  data_folder         = "${var.data_dir_network}/firewall-rules/nonprod"
   cidr_template_file  = "${var.data_dir_network}/cidrs.yaml"
 }
 
-resource "google_compute_router" "hprod-uw2-router" {
+resource "google_compute_router" "nonprod-uw2-router" {
   name    = "landing-router"
-  network = module.hprod-spoke-vpc.name
-  project = module.project_network_spoke_hprod.project_id
+  network = module.nonprod-spoke-vpc.name
+  project = module.project_network_spoke_nonprod.project_id
   region  = "us-west2"
   bgp {
     asn               = 4200001025
@@ -63,27 +63,27 @@ resource "google_compute_router" "hprod-uw2-router" {
   }
 }
 
-module "hprod-uw2-nat" {
+module "nonprod-uw2-nat" {
   source         = "./modules/net-cloudnat"
-  project_id     = module.project_network_spoke_hprod.project_id
+  project_id     = module.project_network_spoke_nonprod.project_id
   region         = "us-west2"
   name           = "uw2"
   router_create  = false
-  router_name    = google_compute_router.hprod-uw2-router.name
+  router_name    = google_compute_router.nonprod-uw2-router.name
 }
 
 
-module "hprod-to-landing-uw2-vpn" {
+module "nonprod-to-landing-uw2-vpn" {
   source     = "./modules/net-vpn-ha"
-  project_id = module.project_network_spoke_hprod.project_id
-  network    = module.hprod-spoke-vpc.name
+  project_id = module.project_network_spoke_nonprod.project_id
+  network    = module.nonprod-spoke-vpc.name
   region     = "us-west2"
   name       = "vpn-to-landing-uw2"
  
   router_create    = false
-  router_name      = google_compute_router.hprod-uw2-router.name
-  router_asn       = google_compute_router.hprod-uw2-router.bgp[0].asn
-  peer_gcp_gateway = module.landing-to-hprod-uw2-vpn.self_link
+  router_name      = google_compute_router.nonprod-uw2-router.name
+  router_asn       = google_compute_router.nonprod-uw2-router.bgp[0].asn
+  peer_gcp_gateway = module.landing-to-nonprod-uw2-vpn.self_link
   tunnels = {
     remote-0 = {
       bgp_peer = {
@@ -114,6 +114,6 @@ module "hprod-to-landing-uw2-vpn" {
 
   }
   depends_on = [
-    google_compute_router.hprod-uw2-router
+    google_compute_router.nonprod-uw2-router
   ]
 }
