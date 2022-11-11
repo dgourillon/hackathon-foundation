@@ -1,5 +1,5 @@
 # skip boilerplate check
 
 region: us-west2
-ip_cidr_range: 10.128.32.0/24
+ip_cidr_range: 10.128.10.0/24
 description: Default subnet for dev
