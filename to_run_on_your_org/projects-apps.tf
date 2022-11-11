@@ -60,6 +60,6 @@ module "dev-projects" {
 
 resource "google_compute_shared_vpc_service_project" "dev-xpn-service" {
   for_each        = local.dev_projects
-  host_project    = module.project_network_spoke_dev.project_id
+  host_project    = module.project_network_spoke_nonprod.project_id
   service_project = replace("${each.key}-${random_string.random.result}", "dev/", "dev-")
 }
