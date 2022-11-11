@@ -27,8 +27,8 @@ locals {
 
   }
   defaults = merge(local._defaults, local._defaults_net)
-  projects = {
-    for f in fileset("${var.data_dir_projects}", "**/*.yaml") :
+  dev_projects = {
+    for f in fileset("${var.data_dir_projects}", "dev/*.yaml") :
     trimsuffix(f, ".yaml") => yamldecode(file("${var.data_dir_projects}/${f}"))
   }
 }
@@ -36,9 +36,9 @@ locals {
 
 module "projects" {
   source                 = "./factories/project-factory"
-  for_each               = local.projects
+  for_each               = local.dev_projects
   defaults               = local.defaults
-  project_id             = replace("${each.key}-${random_string.random.result}", "projects/", "")
+  project_id             = replace("${each.key}-${random_string.random.result}", "dev/", "")
   billing_account_id     = var.billing_account
   billing_alert          = try(each.value.billing_alert, null)
  # dns_zones              = try(each.value.dns_zones, [])
@@ -57,5 +57,4 @@ module "projects" {
   service_identities_iam = try(each.value.service_identities_iam, {})
   vpc                    = try(each.value.vpc, null)
 }
-
 
