@@ -19,6 +19,11 @@ variable "parent_id" {
   description = "Id of the resource under which the folder will be placed."
 }
 
+variable "hackathon_folder_name" {
+  type        = string
+  description = "top folder for the hackathon"
+}
+
 variable "parent_type" {
   type        = string
   description = "Type of the parent resource. One of `organizations` or `folders`."
