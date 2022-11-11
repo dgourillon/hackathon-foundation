@@ -21,7 +21,7 @@ locals {
   _defaults = yamldecode(file(var.defaults_file_projects))
   _defaults_net = {
     shared_vpc_self_link = module.landing-vpc.self_link
-    vpc_host_project     = module.project_network_spoke_dev.project_id
+    vpc_host_project     = module.project_network_spoke_hprod.project_id
     environment_dns_zone = var.environment_dns_zone
     billing_account_id   = var.billing_account
 
