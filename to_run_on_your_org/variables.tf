@@ -163,7 +163,7 @@ variable "l7ilb_subnets" {
       { ip_cidr_range = "10.128.92.0/24", region = "europe-west1" },
       { ip_cidr_range = "10.128.93.0/24", region = "europe-west4" }
     ]
-    hprod = [
+    nonprod = [
       { ip_cidr_range = "10.128.60.0/24", region = "europe-west1" },
       { ip_cidr_range = "10.128.61.0/24", region = "europe-west4" }
     ]
