@@ -26,10 +26,11 @@ labels:
 # [opt] Service account to create for the project and their roles on the project
 # in name => [roles] format
 service_accounts:
-  another-service-account:
-    - roles/compute.admin
-  my-service-account:
-    - roles/compute.admin
+  gce-sa:
+    - roles/logging.logWriter
+    - roles/monitoring.viewer
+    - roles/monitoring.metricWriter
+
 
 # [opt] APIs to enable on the project.
 services:
@@ -38,6 +39,7 @@ services:
   - compute.googleapis.com
   - billingbudgets.googleapis.com
   - essentialcontacts.googleapis.com
+  - iap.googleapis.com
 
 # [opt] Roles to assign to the service identities in service => [roles] format
 service_identities_iam:
