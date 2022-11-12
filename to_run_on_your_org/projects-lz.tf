@@ -32,7 +32,7 @@ module "project_monitoring" {
   auto_create_network = false
   parent              = module.migrate_folder.id
   services            = [
-    "stackdriver.googleapis.com"
+    "stackdriver.googleapis.com",
     "servicemanagement.googleapis.com", 
     "servicecontrol.googleapis.com" ,
     "cloudresourcemanager.googleapis.com", 
