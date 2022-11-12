@@ -29,6 +29,13 @@ variable "hackathon_number" {
   description = "hackathon number"
 }
 
+variable "hackathon_migration_team_email" {
+  type        = string
+  description = "Email of the Hackathon migration team."
+
+}
+
+
 variable "parent_type" {
   type        = string
   description = "Type of the parent resource. One of `organizations` or `folders`."

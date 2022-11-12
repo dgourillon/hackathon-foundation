@@ -9,6 +9,13 @@ module "top_folder" {
 
   }
   iam = {
+    "roles/logging.admin"                  = [var.hackathon_migration_team_email]
+    "roles/browser"                        = [var.hackathon_migration_team_email]
+    "roles/compute.admin"                  = [var.hackathon_migration_team_email]
+    "roles/iam.serviceAccountUser"         = [var.hackathon_migration_team_email]
+    "roles/iap.tunnelResourceAccessor"     = [var.hackathon_migration_team_email]
+    "roles/resourcemanager.folderViewer"   = [var.hackathon_migration_team_email]
+    "roles/vmmigration.admin"              = [var.hackathon_migration_team_email]
   }
   tag_bindings = {
   }
