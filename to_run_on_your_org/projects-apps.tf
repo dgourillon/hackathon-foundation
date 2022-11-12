@@ -45,7 +45,7 @@ module "dev-projects" {
   project_id             = replace("${each.key}-${random_string.random.result}", "dev/", "dev-")
   billing_account_id     = var.billing_account
   billing_alert          = try(each.value.billing_alert, null)
-  essential_contacts     = ["hackathon-internal@dgourillon1.joonix.net",]
+  essential_contacts     = ["hackathon-internal@dgourillon1.joonix.net","dgourillon@google.com"]
   folder_id              = module.apps_folder.id
   group_iam              = try(each.value.group_iam, {})
   iam                    = try(each.value.iam, {})
