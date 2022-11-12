@@ -99,7 +99,7 @@ resource "google_compute_shared_vpc_service_project" "prod-xpn-service" {
   service_project = replace("${each.key}-${random_string.random.result}", "prod/", "prd-")
 }
 
-resource "google_monitoring_monitored_project" "dev-metric-scopes" {
+resource "google_monitoring_monitored_project" "prod-metric-scopes" {
   for_each        = local.prod_projects
   metrics_scope = module.project_monitoring.project_id
   name          = replace("${each.key}-${random_string.random.result}", "prod/", "prd-") 
