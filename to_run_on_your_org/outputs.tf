@@ -16,12 +16,12 @@
 
 output "dev-apps-projects" {
   description = "Created dev apps projects "
-  value       = module.dev-projects.project_id
+  value       = module.dev-projects
 }
 
 output "prod-apps-projects" {
   description = "Created prod apps projects "
-  value       = module.prod-projects.project_id
+  value       = module.prod-projects
 }
 
 output "migrate-projects" {
