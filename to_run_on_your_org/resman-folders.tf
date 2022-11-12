@@ -6,16 +6,18 @@ module "top_folder" {
   parent            = "${var.parent_type}/${var.parent_id}"
   name   = "hackathon-${var.hackathon_number}"
   group_iam = {
-
+ 
+    var.hackathon_migration_team_email = [
+      "roles/logging.admin"                 
+      "roles/browser"                       
+      "roles/compute.admin"                 
+      "roles/iam.serviceAccountUser"        
+      "roles/iap.tunnelResourceAccessor"    
+      "roles/resourcemanager.folderViewer"  
+      "roles/vmmigration.admin"             
+    ]
   }
-  iam = {
-    "roles/logging.admin"                  = [var.hackathon_migration_team_email]
-    "roles/browser"                        = [var.hackathon_migration_team_email]
-    "roles/compute.admin"                  = [var.hackathon_migration_team_email]
-    "roles/iam.serviceAccountUser"         = [var.hackathon_migration_team_email]
-    "roles/iap.tunnelResourceAccessor"     = [var.hackathon_migration_team_email]
-    "roles/resourcemanager.folderViewer"   = [var.hackathon_migration_team_email]
-    "roles/vmmigration.admin"              = [var.hackathon_migration_team_email]
+  iam_additive = {
   }
   tag_bindings = {
   }
