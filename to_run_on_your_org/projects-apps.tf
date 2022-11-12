@@ -45,12 +45,12 @@ module "dev-projects" {
   project_id             = replace("${each.key}-${random_string.random.result}", "dev/", "dev-")
   billing_account_id     = var.billing_account
   billing_alert          = try(each.value.billing_alert, null)
-  essential_contacts     = ["hackathon-internal@dgourillon1.joonix.net","dgourillon@google.com"]
+  essential_contacts     = []
   folder_id              = module.apps_folder.id
   group_iam              = try(each.value.group_iam, {})
   iam                    = try(each.value.iam, {})
   kms_service_agents     = try(each.value.kms, {})
-  labels                 = try(each.value.labels, {})
+  labels                 = merge(try(each.value.labels, {}),{hackathon_number = var.hackathon_number})
   org_policies           = try(each.value.org_policies, null)
 
   service_accounts       = try(each.value.service_accounts, {})
@@ -73,7 +73,7 @@ module "prod-projects" {
   project_id             = replace("${each.key}-${random_string.random.result}", "prod/", "prd-")
   billing_account_id     = var.billing_account
   billing_alert          = try(each.value.billing_alert, null)
-  essential_contacts     = ["hackathon-internal@dgourillon1.joonix.net",]
+  essential_contacts     = []
   folder_id              = module.apps_folder.id
   group_iam              = try(each.value.group_iam, {})
   iam                    = try(each.value.iam, {})
