@@ -41,8 +41,5 @@ services:
   - essentialcontacts.googleapis.com
   - iap.googleapis.com
 
-# [opt] Roles to assign to the service identities in service => [roles] format
-service_identities_iam:
-  compute:
-    - roles/storage.objectViewer
+
 
