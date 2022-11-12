@@ -7,7 +7,7 @@ module "top_folder" {
   name   = "hackathon-${var.hackathon_number}"
   group_iam = {
  
-    var.hackathon_migration_team_email = [
+    "var.hackathon_migration_team_email" = [
       "roles/logging.admin",                 
       "roles/browser",
       "roles/compute.admin",
