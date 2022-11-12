@@ -86,3 +86,9 @@ module "prod-projects" {
   service_identities_iam = try(each.value.service_identities_iam, {})
 
 }
+
+resource "google_compute_shared_vpc_service_project" "prod-xpn-service" {
+  for_each        = local.dev_projects
+  host_project    = module.project_network_spoke_prod.project_id
+  service_project = replace("${each.key}-${random_string.random.result}", "prod/", "prd-")
+}
