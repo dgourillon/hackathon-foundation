@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-output "projects" {
-  description = "Created projects and service accounts."
-  value       = module.dev-projects
+output "apps-projects" {
+  description = "Created apps projects "
+  value       = concat(module.dev-projects.project_id,module.prod-projects.project_id)
+}
+
+output "migrate-projects" {
+  description = "Created M4C project"
+  value       = module.project_migrate.project_id
 }
