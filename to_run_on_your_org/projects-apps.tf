@@ -45,7 +45,7 @@ module "dev-projects" {
   project_id             = replace("${each.key}-${random_string.random.result}", "dev/", "dev-")
   billing_account_id     = var.billing_account
   billing_alert          = try(each.value.billing_alert, null)
-  essential_contacts     = ["hackathon-internal@dgourillon1.joonix.net"]
+  essential_contacts     = ["hackathon-internal@dgourillon1.joonix.net",]
   folder_id              = module.apps_folder.id
   group_iam              = try(each.value.group_iam, {})
   iam                    = try(each.value.iam, {})
@@ -73,7 +73,7 @@ module "prod-projects" {
   project_id             = replace("${each.key}-${random_string.random.result}", "prod/", "prd-")
   billing_account_id     = var.billing_account
   billing_alert          = try(each.value.billing_alert, null)
-  essential_contacts     = ["hackathon-internal@dgourillon1.joonix.net"]
+  essential_contacts     = ["hackathon-internal@dgourillon1.joonix.net",]
   folder_id              = module.apps_folder.id
   group_iam              = try(each.value.group_iam, {})
   iam                    = try(each.value.iam, {})
@@ -88,7 +88,7 @@ module "prod-projects" {
 }
 
 resource "google_compute_shared_vpc_service_project" "prod-xpn-service" {
-  for_each        = local.dev_projects
+  for_each        = local.prod_projects
   host_project    = module.project_network_spoke_prod.project_id
   service_project = replace("${each.key}-${random_string.random.result}", "prod/", "prd-")
 }
