@@ -8,7 +8,7 @@ resource "random_string" "random" {
 module "project_migrate" {
   source              = "./modules/project"
   billing_account     = var.billing_account
-  name                = "migrate-project-${random_string.random.result}"
+  name                = "migrate-${random_string.random.result}"
   auto_create_network = false
   parent              = module.migrate_folder.id
   services            = [
@@ -21,6 +21,25 @@ module "project_migrate" {
     "cloudresourcemanager.googleapis.com", 
     "billingbudgets.googleapis.com",
     "essentialcontacts.googleapis.com"
+  ]
+
+}
+
+module "project_monitoring" {
+  source              = "./modules/project"
+  billing_account     = var.billing_account
+  name                = "monitoring-${random_string.random.result}"
+  auto_create_network = false
+  parent              = module.migrate_folder.id
+  services            = [
+    "stackdriver.googleapis.com"
+    "servicemanagement.googleapis.com", 
+    "servicecontrol.googleapis.com" ,
+    "cloudresourcemanager.googleapis.com", 
+    "billingbudgets.googleapis.com",
+    "essentialcontacts.googleapis.com",
+    "monitoring.googleapis.com"
+
   ]
 
 }
