@@ -8,12 +8,12 @@ module "top_folder" {
   group_iam = {
  
     var.hackathon_migration_team_email = [
-      "roles/logging.admin"                 
-      "roles/browser"                       
-      "roles/compute.admin"                 
-      "roles/iam.serviceAccountUser"        
-      "roles/iap.tunnelResourceAccessor"    
-      "roles/resourcemanager.folderViewer"  
+      "roles/logging.admin",                 
+      "roles/browser",
+      "roles/compute.admin",
+      "roles/iam.serviceAccountUser",
+      "roles/iap.tunnelResourceAccessor",
+      "roles/resourcemanager.folderViewer",
       "roles/vmmigration.admin"             
     ]
   }
