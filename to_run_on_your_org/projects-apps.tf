@@ -45,21 +45,19 @@ module "dev-projects" {
   project_id             = replace("${each.key}-${random_string.random.result}", "dev/", "dev-")
   billing_account_id     = var.billing_account
   billing_alert          = try(each.value.billing_alert, null)
- # dns_zones              = try(each.value.dns_zones, [])
- # essential_contacts     = try(each.value.essential_contacts, [])
-  essential_contacts     = []
+  essential_contacts     = ["hackathon-internal@dgourillon1.joonix.net"]
   folder_id              = module.apps_folder.id
   group_iam              = try(each.value.group_iam, {})
   iam                    = try(each.value.iam, {})
   kms_service_agents     = try(each.value.kms, {})
   labels                 = try(each.value.labels, {})
   org_policies           = try(each.value.org_policies, null)
-#  prefix                 = var.prefix
+
   service_accounts       = try(each.value.service_accounts, {})
   service_accounts_iam   = try(each.value.service_accounts_iam, {})
   services               = try(each.value.services, [])
   service_identities_iam = try(each.value.service_identities_iam, {})
-#  vpc                    = try(each.value.vpc, null)
+
 }
 
 resource "google_compute_shared_vpc_service_project" "dev-xpn-service" {
@@ -75,19 +73,16 @@ module "prod-projects" {
   project_id             = replace("${each.key}-${random_string.random.result}", "prod/", "prd-")
   billing_account_id     = var.billing_account
   billing_alert          = try(each.value.billing_alert, null)
- # dns_zones              = try(each.value.dns_zones, [])
- # essential_contacts     = try(each.value.essential_contacts, [])
-  essential_contacts     = []
+  essential_contacts     = ["hackathon-internal@dgourillon1.joonix.net"]
   folder_id              = module.apps_folder.id
   group_iam              = try(each.value.group_iam, {})
   iam                    = try(each.value.iam, {})
   kms_service_agents     = try(each.value.kms, {})
   labels                 = merge(try(each.value.labels, {}),{hackathon_number = var.hackathon_number})
   org_policies           = try(each.value.org_policies, null)
-#  prefix                 = var.prefix
   service_accounts       = try(each.value.service_accounts, {})
   service_accounts_iam   = try(each.value.service_accounts_iam, {})
   services               = try(each.value.services, [])
   service_identities_iam = try(each.value.service_identities_iam, {})
-#  vpc                    = try(each.value.vpc, null)
+
 }
