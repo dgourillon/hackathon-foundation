@@ -66,6 +66,12 @@ resource "google_compute_shared_vpc_service_project" "dev-xpn-service" {
   service_project = replace("${each.key}-${random_string.random.result}", "dev/", "dev-")
 }
 
+resource "google_monitoring_monitored_project" "dev-metric-scopes" {
+  for_each        = local.dev_projects
+  metrics_scope = module.project_monitoring.project_id
+  name          = replace("${each.key}-${random_string.random.result}", "dev/", "dev-")
+}
+
 module "prod-projects" {
   source                 = "./factories/project-factory"
   for_each               = local.prod_projects
@@ -91,4 +97,10 @@ resource "google_compute_shared_vpc_service_project" "prod-xpn-service" {
   for_each        = local.prod_projects
   host_project    = module.project_network_spoke_prod.project_id
   service_project = replace("${each.key}-${random_string.random.result}", "prod/", "prd-")
+}
+
+resource "google_monitoring_monitored_project" "dev-metric-scopes" {
+  for_each        = local.prod_projects
+  metrics_scope = module.project_monitoring.project_id
+  name          = replace("${each.key}-${random_string.random.result}", "prod/", "prd-") 
 }
