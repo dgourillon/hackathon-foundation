@@ -31,7 +31,7 @@ allow-sshrdp-from-iap:
   description: "Enable SSH/RDP from IAP"
   direction: INGRESS
   action: allow
-  source_ranges:
+  ranges:
     - 35.235.240.0/20
   targets:
     - iap
