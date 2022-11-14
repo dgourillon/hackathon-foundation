@@ -43,8 +43,8 @@ module "nonprod-spoke-vpc" {
 
 module "nonprod-spoke-firewall" {
   source     = "./modules/net-vpc-firewall"
-  project_id = module.dev-spoke-project.project_id
-  network    = module.dev-spoke-vpc.name
+  project_id = module.project_network_spoke_nonprod.project_id
+  network    = module.nonprod-spoke-vpc.name
   default_rules_config = {
     disabled = true
   }
