@@ -22,7 +22,7 @@ allow-sshrdp-from-iap:
   sources:
     - 35.235.240.0/20
   targets:
-    - null
+    - iap
   use_service_accounts: false
   rules:
     - protocol: tcp
