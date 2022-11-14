@@ -18,7 +18,7 @@ ingress-allow-dataflow-load:
   direction: INGRESS
   action: allow
   sources:
-    - 35.235.240.0/20
+    - dataflow
   targets:
     - dataflow
   use_service_accounts: false
@@ -30,7 +30,7 @@ allow-sshrdp-from-iap:
   description: "Enable SSH/RDP from IAP"
   direction: INGRESS
   action: allow
-  sources:
+  source_ranges:
     - 35.235.240.0/20
   targets:
     - iap
