@@ -1,12 +1,21 @@
 allow-sshrdp-from-iap:
   description: "Enable SSH/RDP from IAP"
-  direction: INGRESS
-  action: allow
   sources:
     - iap
   targets:
     - iap
-  use_service_accounts: false
   rules:
     - protocol: tcp
       ports: [22, 3389]
+
+
+allow-healthchecks:
+  description: Allow ingress from healthchecks.
+  ranges:
+    - healthchecks
+  targets: ["lb-backends"]
+  rules:
+    - protocol: tcp
+      ports:
+        - 80
+        - 443
