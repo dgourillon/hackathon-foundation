@@ -18,7 +18,7 @@ ingress-allow-dataflow-load:
   direction: INGRESS
   action: allow
   sources:
-    - dataflow
+    - 35.235.240.0/20
   targets:
     - dataflow
   use_service_accounts: false
@@ -26,15 +26,13 @@ ingress-allow-dataflow-load:
     - protocol: tcp
       ports: [12345, 12346]
 
-
 allow-sshrdp-from-iap:
-  description: Enable SSH/RDP from IAP
+  description: "Enable SSH/RDP from IAP"
   direction: INGRESS
   action: allow
-  priority: 1002
-  ranges:
+  sources:
     - 35.235.240.0/20
-  ports:
-    tcp: ["22","3389"]
-  target_resources: null
-  enable_logging: false
+  use_service_accounts: false
+  rules:
+    - protocol: tcp
+      ports: [22, 3389]
