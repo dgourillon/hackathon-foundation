@@ -40,17 +40,6 @@ module "nonprod-spoke-vpc" {
   }
 }
 
-module "nonprod-spoke-firewall" {
-  source              = "./modules/net-vpc-firewall"
-  project_id          = module.project_network_spoke_nonprod.project_id
-  network             = module.nonprod-spoke-vpc.name
-  admin_ranges        = []
-  http_source_ranges  = []
-  https_source_ranges = []
-  ssh_source_ranges   = []
-  data_folder         = "${var.data_dir_network}/firewall-rules/nonprod"
-  cidr_template_file  = "${var.data_dir_network}/cidrs.yaml"
-}
 
 module "nonprod-spoke-firewall" {
   source     = "../../../modules/net-vpc-firewall"
