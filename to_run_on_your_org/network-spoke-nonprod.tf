@@ -49,8 +49,8 @@ module "nonprod-spoke-firewall" {
     disabled = true
   }
   factories_config = {
-    cidr_tpl_file = "${var.data_dir}/cidrs.yaml"
-    rules_folder  = "${var.data_dir}/firewall-rules/nonprod"
+    cidr_tpl_file = "${var.data_dir_network}/cidrs.yaml"
+    rules_folder  = "${var.data_dir_network}/firewall-rules/nonprod"
   }
 }
 
