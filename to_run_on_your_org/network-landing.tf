@@ -38,7 +38,7 @@ module "landing-vpc" {
       next_hop      = "default-internet-gateway"
     }
   }
-  data_folder = "${var.data_dir}/subnets/landing"
+  data_folder = "${var.data_dir_network}/subnets/landing"
 }
 
 module "landing-firewall" {
@@ -49,8 +49,8 @@ module "landing-firewall" {
   http_source_ranges  = []
   https_source_ranges = []
   ssh_source_ranges   = []
-  data_folder         = "${var.data_dir}/firewall-rules/landing"
-  cidr_template_file  = "${var.data_dir}/cidrs.yaml"
+  data_folder         = "${var.data_dir_network}/firewall-rules/landing"
+  cidr_template_file  = "${var.data_dir_network}/cidrs.yaml"
 }
 
 resource "google_compute_router" "landing-uw2-router" {
