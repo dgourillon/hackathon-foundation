@@ -40,16 +40,18 @@ module "prod-spoke-vpc" {
   }
 }
 
+
 module "prod-spoke-firewall" {
   source              = "./modules/net-vpc-firewall"
   project_id          = module.project_network_spoke_prod.project_id
   network             = module.prod-spoke-vpc.name
-  admin_ranges        = []
-  http_source_ranges  = []
-  https_source_ranges = []
-  ssh_source_ranges   = []
-  data_folder         = "${var.data_dir_network}/firewall-rules/prod"
-  cidr_template_file  = "${var.data_dir_network}/cidrs.yaml"
+  default_rules_config = {
+    disabled = true
+  }
+  factories_config = {
+    cidr_tpl_file = "${var.data_dir_network}/cidrs.yaml"
+    rules_folder  = "${var.data_dir_network}/firewall-rules/prod"
+  }
 }
 
 resource "google_compute_router" "prod-uw2-router" {

@@ -45,13 +45,15 @@ module "landing-firewall" {
   source              = "./modules/net-vpc-firewall"
   project_id          = module.project_network_hub.project_id
   network             = module.landing-vpc.name
-  admin_ranges        = []
-  http_source_ranges  = []
-  https_source_ranges = []
-  ssh_source_ranges   = []
-  data_folder         = "${var.data_dir_network}/firewall-rules/landing"
-  cidr_template_file  = "${var.data_dir_network}/cidrs.yaml"
+  default_rules_config = {
+    disabled = true
+  }
+  factories_config = {
+    cidr_tpl_file = "${var.data_dir_network}/cidrs.yaml"
+    rules_folder  = "${var.data_dir_network}/firewall-rules/landing"
+  }
 }
+
 
 resource "google_compute_router" "landing-uw2-router" {
   name    = "landing-router"

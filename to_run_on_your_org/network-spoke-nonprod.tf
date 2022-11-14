@@ -52,6 +52,19 @@ module "nonprod-spoke-firewall" {
   cidr_template_file  = "${var.data_dir_network}/cidrs.yaml"
 }
 
+module "nonprod-spoke-firewall" {
+  source     = "../../../modules/net-vpc-firewall"
+  project_id = module.dev-spoke-project.project_id
+  network    = module.dev-spoke-vpc.name
+  default_rules_config = {
+    disabled = true
+  }
+  factories_config = {
+    cidr_tpl_file = "${var.data_dir}/cidrs.yaml"
+    rules_folder  = "${var.data_dir}/firewall-rules/nonprod"
+  }
+}
+
 resource "google_compute_router" "nonprod-uw2-router" {
   name    = "landing-router"
   network = module.nonprod-spoke-vpc.name
