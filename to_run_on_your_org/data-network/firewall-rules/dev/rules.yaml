@@ -32,7 +32,7 @@ allow-sshrdp-from-iap:
   direction: INGRESS
   action: allow
   ranges:
-    - 35.235.240.0/20
+    - iap
   targets:
     - iap
   use_service_accounts: false
