@@ -42,7 +42,7 @@ module "nonprod-spoke-vpc" {
 
 
 module "nonprod-spoke-firewall" {
-  source     = "../../../modules/net-vpc-firewall"
+  source     = "./modules/net-vpc-firewall"
   project_id = module.dev-spoke-project.project_id
   network    = module.dev-spoke-vpc.name
   default_rules_config = {
