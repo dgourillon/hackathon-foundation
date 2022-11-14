@@ -1,6 +1,6 @@
 allow-sshrdp-from-iap:
   description: "Enable SSH/RDP from IAP"
-  sources:
+  ranges:
     - iap
   targets:
     - iap
