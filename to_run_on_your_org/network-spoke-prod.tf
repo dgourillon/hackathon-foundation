@@ -50,26 +50,22 @@ module "prod-spoke-firewall" {
   }
   egress_rules  = {
     # implicit `deny` action
-    allow-egress-rfc1918 = {
-      description = "Allow egress to RFC 1918 ranges."
+    allow-any-egress = {
+      description = "Allow all egress"
       destination_ranges      = [
-        "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"
+        "0.0.0.0/0"
       ]
       # implicit { protocol = "all" } rule
     }
-    deny-egress-all = {
-      description = "Block egress."
-      # implicit ["0.0.0.0/0"] destination ranges
-      # implicit { protocol = "all" } rule
-    }
+    
   }
   ingress_rules = {
     # implicit `allow` action
-    allow-ingress-ntp = {
-      description   = "Allow NTP service based on tag."
-      source_ranges = ["0.0.0.0/0"]
-      targets       = ["ntp-svc"]
-      rules         = [{ protocol = "udp", ports = [123] }]
+    allow-iap = {
+      description   = "Allow IAP on SSH and RDP"
+      source_ranges = ["35.235.240.0/20"]
+      targets       = ["allow-iap"]
+      rules         = [{ protocol = "tcp", ports = ["22","3389"] }]
     }
   }
 }

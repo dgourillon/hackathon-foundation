@@ -48,9 +48,25 @@ module "nonprod-spoke-firewall" {
   default_rules_config = {
     disabled = true
   }
-  factories_config = {
-    cidr_tpl_file = "data-network/cidrs.yaml"
-    rules_folder  = "data-network/firewall-rules/nonprod"
+  egress_rules  = {
+    # implicit `deny` action
+    allow-any-egress = {
+      description = "Allow all egress"
+      destination_ranges      = [
+        "0.0.0.0/0"
+      ]
+      # implicit { protocol = "all" } rule
+    }
+    
+  }
+  ingress_rules = {
+    # implicit `allow` action
+    allow-iap = {
+      description   = "Allow IAP on SSH and RDP"
+      source_ranges = ["35.235.240.0/20"]
+      targets       = ["allow-iap"]
+      rules         = [{ protocol = "tcp", ports = ["22","3389"] }]
+    }
   }
 }
 
