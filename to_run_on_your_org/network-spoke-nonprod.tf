@@ -45,9 +45,7 @@ module "nonprod-spoke-firewall" {
   source     = "./modules/net-vpc-firewall"
   project_id = module.project_network_spoke_nonprod.project_id
   network    = module.nonprod-spoke-vpc.name
-  default_rules_config = {
-    disabled = true
-  }
+  default_rules_config = null
   factories_config = {
     cidr_tpl_file = "${var.data_dir_network}/cidrs.yaml"
     rules_folder  = "${var.data_dir_network}/firewall-rules/nonprod"
