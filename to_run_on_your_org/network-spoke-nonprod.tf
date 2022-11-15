@@ -64,7 +64,7 @@ module "nonprod-spoke-firewall" {
     allow-iap = {
       description   = "Allow IAP on SSH and RDP"
       source_ranges = ["35.235.240.0/20"]
-      targets       = ["allow-iap"]
+
       rules         = [{ protocol = "tcp", ports = ["22","3389"] }]
     }
   }
