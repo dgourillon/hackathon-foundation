@@ -85,6 +85,7 @@ resource "google_compute_route" "default-nonprod-route" {
   name        = "default-route-to-hub"
   dest_range  = "0.0.0.0/0"
   network     = module.nonprod-spoke-vpc.name
+  project = module.project_network_spoke_nonprod.project_id
   next_hop_vpn_tunnel = module.nonprod-to-landing-uw2-vpn.tunnel_self_links["remote-0"]
   priority    = 100
 }
