@@ -84,7 +84,14 @@ resource "google_compute_router" "landing-uw2-router" {
   region  = "us-west2"
   bgp {
     asn               = 4200001024
-    advertise_mode    = "DEFAULT"
+    advertise_mode    = "CUSTOM"
+    advertised_groups = ["ALL_SUBNETS"]
+    advertised_ip_ranges {
+      range = "1.2.3.4"
+    }
+    advertised_ip_ranges {
+      range = "6.7.0.0/16"
+    }
   }
 }
 
