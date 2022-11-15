@@ -1,5 +1,6 @@
 allow-healthchecks:
   description: Allow ingress from healthchecks.
+  direction: "ingress"
   ranges:
     - healthchecks
   targets: ["lb-backends"]
