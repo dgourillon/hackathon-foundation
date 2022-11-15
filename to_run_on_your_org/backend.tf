@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
     bucket = "mre-hackathon-tfstates"
-    prefix = "hck-${var.hackathon_number}-"
+    prefix = "hck-UPDATE_ME_WITH_HACKATHON_NUMBER"
   }
 }
