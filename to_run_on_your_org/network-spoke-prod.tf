@@ -48,9 +48,29 @@ module "prod-spoke-firewall" {
   default_rules_config = {
     disabled = true
   }
-  factories_config = {
-    cidr_tpl_file = "${var.data_dir_network}/cidrs.yaml"
-    rules_folder  = "${var.data_dir_network}/firewall-rules/prod"
+  egress_rules  = {
+    # implicit `deny` action
+    allow-egress-rfc1918 = {
+      description = "Allow egress to RFC 1918 ranges."
+      destination_ranges      = [
+        "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"
+      ]
+      # implicit { protocol = "all" } rule
+    }
+    deny-egress-all = {
+      description = "Block egress."
+      # implicit ["0.0.0.0/0"] destination ranges
+      # implicit { protocol = "all" } rule
+    }
+  }
+  ingress_rules = {
+    # implicit `allow` action
+    allow-ingress-ntp = {
+      description   = "Allow NTP service based on tag."
+      source_ranges = ["0.0.0.0/0"]
+      targets       = ["ntp-svc"]
+      rules         = [{ protocol = "udp", ports = [123] }]
+    }
   }
 }
 
