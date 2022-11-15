@@ -51,6 +51,7 @@ module "prod-spoke-firewall" {
   egress_rules  = {
     # implicit `deny` action
     allow-any-egress = {
+      deny = false
       description = "Allow all egress"
       destination_ranges      = [
         "0.0.0.0/0"
