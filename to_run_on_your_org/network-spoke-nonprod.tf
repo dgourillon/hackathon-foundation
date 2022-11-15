@@ -81,14 +81,14 @@ resource "google_compute_router" "nonprod-uw2-router" {
   }
 }
 
-module "nonprod-uw2-nat" {
-  source         = "./modules/net-cloudnat"
-  project_id     = module.project_network_spoke_nonprod.project_id
-  region         = "us-west2"
-  name           = "uw2"
-  router_create  = false
-  router_name    = google_compute_router.nonprod-uw2-router.name
+resource "google_compute_route" "default-nonprod-route" {
+  name        = "default-route-to-hub"
+  dest_range  = "0.0.0.0/0"
+  network     = module.nonprod-spoke-vpc.name
+  next_hop_vpn_tunnel = module.nonprod-to-landing-uw2-vpn.tunnel_self_links
+  priority    = 100
 }
+
 
 
 module "nonprod-to-landing-uw2-vpn" {
