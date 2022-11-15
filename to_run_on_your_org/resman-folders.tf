@@ -16,6 +16,15 @@ module "top_folder" {
       "roles/resourcemanager.folderViewer",
       "roles/vmmigration.admin"             
     ]
+
+     "${var.hackathon_admin_team_email}" = [               
+      "roles/editor",
+      "roles/iam.serviceAccountUser",
+      "roles/iap.tunnelResourceAccessor",
+      "roles/resourcemanager.folderViewer",
+      "roles/vmmigration.admin"             
+    ]
+
   }
   iam_additive = {
   }

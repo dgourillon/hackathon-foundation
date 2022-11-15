@@ -35,6 +35,11 @@ variable "hackathon_migration_team_email" {
 
 }
 
+variable "hackathon_migration_team_email" {
+  type        = string
+  description = "Email of the Hackathon admin team."
+
+}
 
 variable "parent_type" {
   type        = string
