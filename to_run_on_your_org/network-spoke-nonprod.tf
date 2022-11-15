@@ -81,13 +81,22 @@ resource "google_compute_router" "nonprod-uw2-router" {
   }
 }
 
-resource "google_compute_route" "default-nonprod-route" {
-  name        = "default-route-to-hub"
+resource "google_compute_route" "default-nonprod-route-0" {
+  name        = "default-route-to-hub-0"
   dest_range  = "0.0.0.0/0"
   network     = module.nonprod-spoke-vpc.name
   project = module.project_network_spoke_nonprod.project_id
   next_hop_vpn_tunnel = module.nonprod-to-landing-uw2-vpn.tunnel_self_links["remote-0"]
-  priority    = 100
+  priority    = 1000
+}
+
+resource "google_compute_route" "default-nonprod-route-1" {
+  name        = "default-route-to-hub-1"
+  dest_range  = "0.0.0.0/0"
+  network     = module.nonprod-spoke-vpc.name
+  project = module.project_network_spoke_nonprod.project_id
+  next_hop_vpn_tunnel = module.nonprod-to-landing-uw2-vpn.tunnel_self_links["remote-1"]
+  priority    = 1000
 }
 
 
