@@ -71,7 +71,7 @@ module "landing-firewall" {
       description   = "Allow healthcheck ranges"
       source_ranges = ["35.191.0.0/16","130.211.0.0/22","209.85.152.0/22","209.85.204.0/22"]
       targets       = ["allow-healthcheck"]
-      rules         = [{ protocol = "tcp", ports = ["all"] }]
+      rules         = [{ protocol = "tcp", ports = null }]
     }
   }
 }
