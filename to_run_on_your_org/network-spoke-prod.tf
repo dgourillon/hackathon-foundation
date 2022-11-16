@@ -92,6 +92,15 @@ resource "google_compute_route" "default-prod-route-0" {
   priority    = 1000
 }
 
+resource "google_compute_route" "default-prod-route-to-onprem" {
+  name        = "default-route-to-hub-0"
+  dest_range  = "172.16.10.0/24"
+  network     = module.prod-spoke-vpc.name
+  project = module.project_network_spoke_prod.project_id
+  next_hop_vpn_tunnel = module.prod-to-landing-uw2-vpn.tunnel_self_links["remote-0"]
+  priority    = 1000
+}
+
 resource "google_compute_route" "default-prod-route-1" {
   name        = "default-route-to-hub-1"
   dest_range  = "0.0.0.0/0"
