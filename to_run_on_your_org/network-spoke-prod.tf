@@ -72,7 +72,7 @@ module "prod-spoke-firewall" {
 }
 
 resource "google_compute_router" "prod-uw2-router" {
-  name    = "landing-router"
+  name    = "prod-router"
   network = module.prod-spoke-vpc.name
   project = module.project_network_spoke_prod.project_id
   region  = "us-west2"
@@ -82,26 +82,15 @@ resource "google_compute_router" "prod-uw2-router" {
   }
 }
 
-
-resource "google_compute_route" "default-prod-route-0" {
-  name        = "default-route-to-hub-0"
-  dest_range  = "0.0.0.0/0"
-  network     = module.prod-spoke-vpc.name
-  project = module.project_network_spoke_prod.project_id
-  next_hop_vpn_tunnel = module.prod-to-landing-uw2-vpn.tunnel_self_links["remote-0"]
-  priority    = 1000
+module "prod-uw2-nat" {
+  source         = "./modules/net-cloudnat"
+  project_id     = module.project_network_hub.project_id
+  region         = "us-west2"
+  name           = "uw2"
+  router_create  = false
+  router_name    = google_compute_router.prod-uw2-router.name
 }
 
-
-
-resource "google_compute_route" "default-prod-route-1" {
-  name        = "default-route-to-hub-1"
-  dest_range  = "0.0.0.0/0"
-  network     = module.prod-spoke-vpc.name
-  project = module.project_network_spoke_prod.project_id
-  next_hop_vpn_tunnel = module.prod-to-landing-uw2-vpn.tunnel_self_links["remote-1"]
-  priority    = 1000
-}
 
 module "prod-to-landing-uw2-vpn" {
   source     = "./modules/net-vpn-ha"

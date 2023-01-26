@@ -72,7 +72,7 @@ module "nonprod-spoke-firewall" {
 }
 
 resource "google_compute_router" "nonprod-uw2-router" {
-  name    = "landing-router"
+  name    = "nonprod-router"
   network = module.nonprod-spoke-vpc.name
   project = module.project_network_spoke_nonprod.project_id
   region  = "us-west2"
@@ -82,24 +82,14 @@ resource "google_compute_router" "nonprod-uw2-router" {
   }
 }
 
-resource "google_compute_route" "default-nonprod-route-0" {
-  name        = "default-route-to-hub-0"
-  dest_range  = "0.0.0.0/0"
-  network     = module.nonprod-spoke-vpc.name
-  project = module.project_network_spoke_nonprod.project_id
-  next_hop_vpn_tunnel = module.nonprod-to-landing-uw2-vpn.tunnel_self_links["remote-0"]
-  priority    = 1000
+module "nonprod-uw2-nat" {
+  source         = "./modules/net-cloudnat"
+  project_id     = module.project_network_hub.project_id
+  region         = "us-west2"
+  name           = "uw2"
+  router_create  = false
+  router_name    = google_compute_router.nonprod-uw2-router.name
 }
-
-resource "google_compute_route" "default-nonprod-route-1" {
-  name        = "default-route-to-hub-1"
-  dest_range  = "0.0.0.0/0"
-  network     = module.nonprod-spoke-vpc.name
-  project = module.project_network_spoke_nonprod.project_id
-  next_hop_vpn_tunnel = module.nonprod-to-landing-uw2-vpn.tunnel_self_links["remote-1"]
-  priority    = 1000
-}
-
 
 
 module "nonprod-to-landing-uw2-vpn" {
