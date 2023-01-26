@@ -105,7 +105,7 @@ resource "google_compute_route" "psolab-prod-route-1" {
   name        = "psolab-route-to-hub-1"
   dest_range  = "172.16.10.0/24"
   network     = module.prod-spoke-vpc.name
-  project = module.project_network_spoke_nonprod.project_id
+  project = module.project_network_spoke_prod.project_id
   next_hop_vpn_tunnel = module.prod-to-landing-uw2-vpn.tunnel_self_links["remote-1"]
   priority    = 1000
 }
